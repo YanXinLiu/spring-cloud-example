@@ -1,0 +1,23 @@
+group 'com.yanxin.admin'
+description '监控模块'
+
+apply plugin: 'application'
+apply plugin: 'org.springframework.boot'
+
+
+dependencies {
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config'
+    // feign
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    // sentinel
+    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel'
+
+    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+

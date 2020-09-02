@@ -1,0 +1,4 @@
+rootProject.name = 'spring-cloud-example'
+include 'spring-cloud-nacos'
+include 'spring-cloud-admin'
+
