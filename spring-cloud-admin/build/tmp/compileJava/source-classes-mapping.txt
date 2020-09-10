@@ -1,6 +1,0 @@
-com/yanxin/admin/controller/AdminController.java
- com.yanxin.admin.controller.AdminController
-com/yanxin/admin/feign/NacosFeignService.java
- com.yanxin.admin.feign.NacosFeignService
-com/yanxin/admin/SpringCloudAdminApplication.java
- com.yanxin.admin.SpringCloudAdminApplication

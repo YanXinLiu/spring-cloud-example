@@ -1,0 +1,10 @@
+group 'com.yanxin.common'
+description 'cloud 能用模块'
+
+apply plugin: 'application'
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+    // hutool
+    api 'cn.hutool:hutool-http:4.5.0'
+}

@@ -13,7 +13,11 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/spring-cloud-admin" />
+            <option value="$PROJECT_DIR$/spring-cloud-common" />
             <option value="$PROJECT_DIR$/spring-cloud-nacos" />
+            <option value="$PROJECT_DIR$/spring-cloud-platform" />
+            <option value="$PROJECT_DIR$/spring-cloud-platform/spring-cloud-plat-api" />
+            <option value="$PROJECT_DIR$/spring-cloud-platform/spring-cloud-plat-biz" />
           </set>
         </option>
         <option name="useQualifiedModuleNames" value="true" />
