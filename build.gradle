@@ -49,7 +49,7 @@ subprojects {
         // 排除 tomcat 依赖（使用 undertow）
         implementation.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
         // 排除 logback 依赖（使用 log4j2）
-        implementation.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+        // implementation.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
     }
 
     dependencies {
