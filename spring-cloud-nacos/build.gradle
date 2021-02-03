@@ -1,7 +1,6 @@
 group 'com.yanxin.nacos'
 description '配置中心模块'
 
-apply plugin: 'application'
 apply plugin: 'org.springframework.boot'
 
 

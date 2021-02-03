@@ -2,7 +2,6 @@ group 'com.yanxin.platform.biz'
 
 description 'plat biz模块'
 
-apply plugin: 'application'
 apply plugin: 'org.springframework.boot'
 
 dependencies {

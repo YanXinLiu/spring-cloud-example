@@ -3,40 +3,33 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 }
 
-
 allprojects {
 
-    group 'com.yanxin'
-    version '1.0-SNAPSHOT'
-
+    group = 'com.yanxin'
+    version = '1.0-SNAPSHOT'
     repositories {
         mavenLocal()
         maven { url "https://maven.aliyun.com/repository/public" }
         jcenter()
     }
-
 }
 
 subprojects {
 
     apply plugin: 'java-library'
     apply plugin: 'idea'
-    apply plugin: 'eclipse'
+    apply plugin: 'maven'
     apply plugin: 'io.spring.dependency-management'
-
     sourceCompatibility = '1.8'
     targetCompatibility = '1.8'
-
     // java编译的时候缺省状态下会因为中文字符而失败
     [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
-
     ext {
         set('springBootVersion', "2.2.9.RELEASE")
         set('springCloudAlibabaVersion', "2.2.1.RELEASE")
         set('springCloudVersion', "Hoxton.SR2")
         set('lombokVersion', "1.18.12")
     }
-
     configurations {
         developmentOnly
         runtimeClasspath {
@@ -45,13 +38,9 @@ subprojects {
         compileOnly {
             extendsFrom annotationProcessor
         }
-
         // 排除 tomcat 依赖（使用 undertow）
         implementation.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
-        // 排除 logback 依赖（使用 log4j2）
-        // implementation.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
     }
-
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-undertow'
         compileOnly "org.projectlombok:lombok:${lombokVersion}"
@@ -59,9 +48,7 @@ subprojects {
         testImplementation('org.springframework.boot:spring-boot-starter-test') {
             exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
         }
-
     }
-
     dependencyManagement {
         imports {
             mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
@@ -69,13 +56,13 @@ subprojects {
         }
     }
 
+    jar {
+        enabled = true
+    }
+
     test {
         useJUnitPlatform()
         ignoreFailures = true
-    }
-
-    jar {
-        enabled = true
     }
 
     /**
@@ -93,6 +80,19 @@ subprojects {
     def env = System.getProperty("env") ?: "dev"
     processResources {
         filter org.apache.tools.ant.filters.ReplaceTokens, tokens: [env: env]
+    }
+
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                snapshotRepository(url: "http://192.168.3.89:8081/repository/maven-snapshots/") {
+                    authentication(userName: "admin", password: "4b1HDSHmwyPxDTWP")
+                }
+                repository(url: "http://192.168.3.89:8081/repository/maven-releases/") {
+                    authentication(userName: "admin", password: "4b1HDSHmwyPxDTWP")
+                }
+            }
+        }
     }
 }
 

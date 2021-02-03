@@ -1,12 +1,11 @@
 group 'com.yanxin.admin'
 description '监控模块'
 
-apply plugin: 'application'
 apply plugin: 'org.springframework.boot'
 
+version = '1.0-RELEASES'
 
 dependencies {
-
 
     implementation 'junit:junit:4.12'
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -22,6 +21,7 @@ dependencies {
     runtime 'mysql:mysql-connector-java'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-data-ldap'
+    implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
     // LDAP

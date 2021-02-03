@@ -2,7 +2,6 @@ group 'com.yanxin.plat.api'
 
 description 'plat api 接口'
 
-apply plugin: 'application'
 apply plugin: 'org.springframework.boot'
 
 dependencies {
