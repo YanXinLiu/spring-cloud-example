@@ -9,13 +9,11 @@ import java.util.Optional;
 /**
  * @program spring-cloud-example
  * @description:
- * @author: LiuYanXin
+ * @author: 、
  * @create: 2020-12-24 17:07
  */
 public interface LdapUserRepository extends CrudRepository<LdapUser, Name> {
 
     Optional<LdapUser> findByCnAndUserPrincipalName(String cn, String principalName);
-
-    Optional<LdapUser> findBysAMAccountName(String cn);
 
 }

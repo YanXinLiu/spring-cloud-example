@@ -1,6 +1,8 @@
 package com.yanxin.admin.config;
 
-import org.springframework.beans.factory.annotation.Value;
+import com.yanxin.admin.domain.LdapConfig;
+import com.yanxin.admin.repository.LdapConfigRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.ldap.repository.config.EnableLdapRepositories;
@@ -18,29 +20,25 @@ import org.springframework.ldap.core.support.LdapContextSource;
 @EnableLdapRepositories
 public class LdapConfiguration {
 
-    @Value("${spring.ldap.urls}")
-    private String ldapUrl;
-    @Value("${spring.ldap.username}")
-    private String userName;
-    @Value("${spring.ldap.password}")
-    private String passWord;
-    @Value("${spring.ldap.base}")
-    private String base;
-
+    @Autowired
+    private LdapConfigRepository ldapConfigRepository;
 
     @Bean
-    ContextSource contextSource() {
+    public ContextSource contextSource() {
 
+        LdapConfig ldap = ldapConfigRepository.findById(1L)
+                .orElseThrow(() -> new IllegalArgumentException("未查找到LDAP配置"));
         LdapContextSource source = new LdapContextSource();
-        source.setBase(base);
-        source.setUrl(ldapUrl);
-        source.setPassword(passWord);
-        source.setUserDn(userName);
+        source.setBase(ldap.getBase());
+        source.setUrl("ldap://192.168.1.98");
+        source.setPassword(ldap.getPassword());
+        source.setUserDn(ldap.getUsername());
+
         return source;
     }
 
     @Bean
-    LdapTemplate ldapTemplate(ContextSource contextSource) {
+    public LdapTemplate ldapTemplate(ContextSource contextSource) {
 
         LdapTemplate ldapTemplate = new LdapTemplate(contextSource);
         ldapTemplate.setIgnorePartialResultException(true);

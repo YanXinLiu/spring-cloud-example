@@ -13,6 +13,10 @@ public interface UserService {
 
     User selectByName(String username);
 
+    User insertUser(User user);
 
-    LoginUserDTO login(LoginUserDTO loginUserDTO);
+    void insertUserAndRole();
+
+
+    Boolean login(LoginUserDTO loginUserDTO);
 }

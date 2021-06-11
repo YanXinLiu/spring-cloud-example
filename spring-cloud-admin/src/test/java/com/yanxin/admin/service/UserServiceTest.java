@@ -1,6 +1,9 @@
 package com.yanxin.admin.service;
 
+import com.yanxin.admin.domain.LdapConfig;
 import com.yanxin.admin.domain.LdapUser;
+import com.yanxin.admin.domain.Role;
+import com.yanxin.admin.domain.User;
 import com.yanxin.admin.repository.LdapUserRepository;
 import org.junit.Assert;
 import org.junit.Test;
@@ -25,21 +28,53 @@ public class UserServiceTest {
     @Autowired
     private LdapUserRepository ldapUserRepository;
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private RoleService roleService;
+
+    @Autowired
+    private LdapConfigService ldapConfigService;
+
     @Test
     public void selectByName() {
 
-        // Optional<LdapUser> opt1 = ldapUserRepository.findByUserPrincipalName("ww@jktest.cn");
-        // Optional<LdapUser> opt11 = ldapUserRepository.findBysAMAccountName("ww");
-        // List<String> data = ldapTemplate.list("OU=IT,OU=Shanghai,OU=China");
+
         List<LdapUser> users = ldapTemplate.find(LdapQueryBuilder.query()
-                .where("cn").is("wan1gwu")
+                .where("cn").is("wangwu")
+                .or("sAMAccount1Name").is("ww")
+                .or("userPrincipalName").is("w1w@jktest.cn"), LdapUser.class);
+
+        ldapConfigService.updateById(LdapConfig.builder()
+                .id(1L)
+                .urls("192.168.3.186").base("CN")
+                .username("admin")
+                .password("123adgqer")
+                .build());
+
+        List<LdapUser> users1 = ldapTemplate.find(LdapQueryBuilder.query()
+                .where("cn").is("wangwu")
                 .or("sAMAccount1Name").is("ww")
                 .or("userPrincipalName").is("w1w@jktest.cn"), LdapUser.class);
 
         Optional<LdapUser> opt = ldapUserRepository.findByCnAndUserPrincipalName("wangwu", "ww@jktest.cn");
         LdapUser user = opt.get();
         EqualsFilter filter = new EqualsFilter("sAMAccountName", user.getSAMAccountName());
-        Assert.assertTrue(ldapTemplate.authenticate("", filter.toString(), "1231qweASD"));
+        Assert.assertTrue(ldapTemplate.authenticate("", filter.toString(), "123qweASD"));
+
+    }
+
+    @Test
+    public void testRollBack() {
+
+        User user = userService.insertUser(User.builder().username("yan")
+                .password("123456")
+                .build());
+
+        Role role = roleService.insertRole(Role.builder().name("yan")
+                .description("admin")
+                .build());
 
     }
 }

@@ -23,6 +23,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-ldap'
     implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    // implementation 'redis.clients:jedis'
 
     // LDAP
     implementation("org.springframework.boot:spring-boot-starter-security")
@@ -34,6 +35,8 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+
+    api 'cn.hutool:hutool-http:4.5.0'
 }
 
 
