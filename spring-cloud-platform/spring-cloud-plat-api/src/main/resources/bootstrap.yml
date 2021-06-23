@@ -1,0 +1,16 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: cloud-nacos
+  cloud:
+    nacos:
+      discovery:
+        server-addr: http://10.0.0.212:8848/
+        namespace: 210a9105-782b-4250-b01b-682dc82f7b3e
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        file-extension: yaml
+        shared-configs:
+          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
