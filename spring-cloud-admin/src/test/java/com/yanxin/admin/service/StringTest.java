@@ -1,15 +1,14 @@
 package com.yanxin.admin.service;
 
-import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.NetUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
-import org.junit.Assert;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -64,12 +63,22 @@ public class StringTest {
     }
 
     @Test
-    public void methodTest() {
+    public void idTest() {
+        // 1408012874005086208
+        System.out.println(NetUtil.ipv4ToLong("http://192.168.3.189"));
 
-        for (int i = 0; i < 4; i++) {
-            char c = (char) ('A' + i);
-            System.out.println(String.valueOf(c));
+        System.out.println(IdUtil.createSnowflake(NetUtil.ipv4ToLong("http://192.168.3.189"), 0).nextId());
+    }
+
+    @Test
+    public void getPathNameTest() {
+
+        String str = "bucketName=dpa&fileName=/dpa/public/test/123.jpg&girl=zhangxiang";
+        List<String> params = Stream.of(StrUtil.split(str, "&")).collect(Collectors.toList());
+        for (String param : params) {
+            if (StringUtils.contains(param, "fileName")) {
+                System.out.println(StrUtil.split(param, "=")[1]);
+            }
         }
-
     }
 }
