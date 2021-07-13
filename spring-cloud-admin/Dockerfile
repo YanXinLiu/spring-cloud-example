@@ -10,6 +10,6 @@ WORKDIR /spring-cloud-admin
 
 EXPOSE 8081
 
-ADD ./spring-cloud-admin-1.0-RELEASES.jar ./
+ADD ./build/libs/spring-cloud-admin-1.0-RELEASES.jar ./
 
 CMD java -Djava.security.egd=file:/dev/./urandom -jar spring-cloud-admin-1.0-RELEASES.jar

@@ -1,20 +1,20 @@
 plugins {
-    id 'org.springframework.boot' version '2.2.9.RELEASE'
+    id 'org.springframework.boot' version '2.2.6.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 }
 
-allprojects {
+repositories {
+    mavenLocal()
+    maven { url "https://maven.aliyun.com/repository/public" }
+    mavenCentral()
+    jcenter()
+}
+
+
+subprojects {
 
     group = 'com.yanxin'
     version = '1.0-SNAPSHOT'
-    repositories {
-        mavenLocal()
-        maven { url "https://maven.aliyun.com/repository/public" }
-        jcenter()
-    }
-}
-
-subprojects {
 
     apply plugin: 'java-library'
     apply plugin: 'idea'
@@ -25,11 +25,19 @@ subprojects {
     // java编译的时候缺省状态下会因为中文字符而失败
     [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
     ext {
-        set('springBootVersion', "2.2.9.RELEASE")
+        set('springBootVersion', "2.2.6.RELEASE")
         set('springCloudAlibabaVersion', "2.2.1.RELEASE")
         set('springCloudVersion', "Hoxton.SR2")
         set('lombokVersion', "1.18.12")
     }
+
+    repositories {
+        mavenLocal()
+        maven { url "https://maven.aliyun.com/repository/public" }
+        jcenter()
+    }
+
+
     configurations {
         developmentOnly
         runtimeClasspath {
@@ -43,6 +51,7 @@ subprojects {
     }
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-undertow'
+        implementation 'org.springframework.boot:spring-boot-starter-actuator'
         compileOnly "org.projectlombok:lombok:${lombokVersion}"
         annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
         testImplementation('org.springframework.boot:spring-boot-starter-test') {
@@ -54,10 +63,6 @@ subprojects {
             mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
             mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
         }
-    }
-
-    jar {
-        enabled = true
     }
 
     test {
@@ -74,13 +79,6 @@ subprojects {
     }
     tasks.clean.dependsOn(cleanOutDir)
 
-    /**
-     * 根据环境打包默认dev开发环境，命令：./gradlew -x test clean bootJar -Denv=dev
-     */
-    def env = System.getProperty("env") ?: "dev"
-    processResources {
-        filter org.apache.tools.ant.filters.ReplaceTokens, tokens: [env: env]
-    }
 
     uploadArchives {
         repositories {
