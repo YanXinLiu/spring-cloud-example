@@ -1,4 +1,4 @@
-node('node01') {
+node {
 
     stage('Tag') {
       echo "1.git tag Stage"
