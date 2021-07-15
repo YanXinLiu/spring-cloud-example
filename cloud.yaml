@@ -40,3 +40,4 @@ spec:
       nodePort: 30003
   selector:
     app: cloud-admin
+
