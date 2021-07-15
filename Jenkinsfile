@@ -10,7 +10,7 @@ node('node01') {
     stage('Build') {
         echo "2.Build Docker Image Stage"
         steps {
-            container('gradle
+            container('gradle'){
                 sh 'gradle clean build'
                 sh "docker build -t harbor.jkservice.org/dpa/spring-cloud-admin:${build_tag} ."
             }
