@@ -11,10 +11,8 @@ pipeline {
 
         }
         stage('Build') {
-            agent{
-                docker {
-                    image: 'gradle:6.5.1'
-                }
+            agent {
+                docker { image 'gradle:6.5.1' }
             }
             steps {
                 echo "2.Build Docker Image Stage"
