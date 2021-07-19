@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('prepare') {
             steps{
-                sh '"echo 1.git tag Stage"'
+                echo "1.git tag Stage"
                 script{
                     build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
                 }
