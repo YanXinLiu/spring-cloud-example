@@ -10,16 +10,16 @@ pipeline {
             }
 
         }
-        /* stage('Build') {
+        stage('Build') {
             steps {
-                sh 'echo "2.Build Docker Image Stage"'
+                echo "2.Build Docker Image Stage"
                 container('gradle'){
                     sh 'gradle clean build'
                     sh 'docker build -t harbor.jkservice.org/dpa/spring-cloud-admin:${build_tag} .'
                 }
             }
         }
-        stage('Push') {
+        /* stage('Push') {
             steps {
                 sh 'echo "3.Push Docker Image Stage"'
                 withCredentials([usernamePassword(credentialsId: 'jk-harbor', passwordVariable: 'jk-harborPassword', usernameVariable: 'jk-harborUser')]) {
