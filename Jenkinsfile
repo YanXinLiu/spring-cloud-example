@@ -10,7 +10,7 @@ pipeline {
             }
 
         }
-        stage('Build') {
+        /* stage('Build') {
             steps {
                 sh 'echo "2.Build Docker Image Stage"'
                 container('gradle'){
@@ -32,6 +32,6 @@ pipeline {
                 sh 'echo "4. Deploy Stage"'
                 sh 'kubectl apply -f cloud.yaml'
             }
-        }
+        } */
     }
 }
