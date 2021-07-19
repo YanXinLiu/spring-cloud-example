@@ -1,6 +1,5 @@
-node {
-
-    stage('Tag') {
+pipeline {
+    stage('prepare') {
       echo "1.git tag Stage"
       script {
               build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()

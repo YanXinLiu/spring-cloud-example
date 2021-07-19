@@ -1,7 +1,6 @@
 package com.yanxin.admin.service;
 
 import cn.hutool.core.util.IdUtil;
-import cn.hutool.core.util.NetUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
@@ -64,10 +63,8 @@ public class StringTest {
 
     @Test
     public void idTest() {
-        // 1408012874005086208
-        System.out.println(NetUtil.ipv4ToLong("http://192.168.3.189"));
 
-        System.out.println(IdUtil.createSnowflake(NetUtil.ipv4ToLong("http://192.168.3.189"), 0).nextId());
+        System.out.println(IdUtil.createSnowflake(31L, 31L).nextId());
     }
 
     @Test
