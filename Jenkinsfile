@@ -8,11 +8,13 @@ pipeline {
                     build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
                 }
             }
-
         }
         stage('Build') {
             agent {
-                docker { image 'gradle:6.5.1' }
+                docker {
+                    image 'gradle:6.5.1'
+                    args '-v $HOME/.gradle/:/root/.gradle/ -v $HOME/.m2/:/root/.m2/'
+                }
             }
             steps {
                 echo "2.Build Docker Image Stage"
