@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    parameters {
+        description: '模块名称', name: 'NAME', choices: ['spring-cloud-admin','spring-cloud-platform']
+    }
     stages {
         stage('prepare') {
             steps{
@@ -18,8 +21,8 @@ pipeline {
             }
             steps {
                 echo "2.Build Docker Image Stage"
-                sh 'gradle clean build'
-                /* sh 'docker build -t harbor.jkservice.org/dpa/spring-cloud-admin:${build_tag} .' */
+                sh 'cd ${params.NAME} && gradle clean build'
+                sh 'cd ${params.Name} && docker build -t harbor.jkservice.org/dpa/spring-cloud-admin:${build_tag} .'
             }
         }
         /* stage('Push') {
