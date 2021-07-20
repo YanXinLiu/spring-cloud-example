@@ -1,7 +1,7 @@
 pipeline {
     agent any
     parameters {
-        choices (
+        choice (
             description: '模块名称', name: 'NAME', choices: ['spring-cloud-admin','spring-cloud-platform']
         )
     }
