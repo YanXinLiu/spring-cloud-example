@@ -1,7 +1,9 @@
 pipeline {
     agent any
     parameters {
-        description: '模块名称', name: 'NAME', choices: ['spring-cloud-admin','spring-cloud-platform']
+        choices {
+            description: '模块名称', name: 'NAME', choices: ['spring-cloud-admin','spring-cloud-platform']
+        }
     }
     stages {
         stage('prepare') {
