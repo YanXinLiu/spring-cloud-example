@@ -2,8 +2,6 @@ package com.yanxin.admin.service;
 
 import com.yanxin.admin.domain.LdapConfig;
 import com.yanxin.admin.domain.LdapUser;
-import com.yanxin.admin.domain.Role;
-import com.yanxin.admin.domain.User;
 import com.yanxin.admin.repository.LdapUserRepository;
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,7 +9,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.ldap.core.LdapTemplate;
-import org.springframework.ldap.core.support.LdapContextSource;
 import org.springframework.ldap.filter.EqualsFilter;
 import org.springframework.ldap.query.LdapQueryBuilder;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -42,9 +39,9 @@ public class UserServiceTest {
     public void selectByName() {
 
         List<LdapUser> users = ldapTemplate.find(LdapQueryBuilder.query()
-                .where("cn").is("wangwu")
-                .or("sAMAccount1Name").is("ww")
-                .or("userPrincipalName").is("w1w@jktest.cn")
+                        .where("cn").is("wangwu")
+                        .or("sAMAccount1Name").is("ww")
+                        .or("userPrincipalName").is("w1w@jktest.cn")
                 , LdapUser.class);
 
         ldapConfigService.updateById(LdapConfig.builder()
@@ -64,13 +61,6 @@ public class UserServiceTest {
     @Test
     public void testRollBack() {
 
-        User user = userService.insertUser(User.builder().username("yan")
-                .password("123456")
-                .build());
-
-        Role role = roleService.insertRole(Role.builder().name("yan")
-                .description("admin")
-                .build());
-
+        userService.insertUserAndRole();
     }
 }

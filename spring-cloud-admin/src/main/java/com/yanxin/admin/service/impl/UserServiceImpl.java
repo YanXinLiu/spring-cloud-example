@@ -1,11 +1,9 @@
 package com.yanxin.admin.service.impl;
 
-import com.yanxin.admin.domain.AutoId;
 import com.yanxin.admin.domain.LdapUser;
 import com.yanxin.admin.domain.Role;
 import com.yanxin.admin.domain.User;
 import com.yanxin.admin.dto.LoginUserDTO;
-import com.yanxin.admin.repository.AutoIdRepository;
 import com.yanxin.admin.repository.LdapUserRepository;
 import com.yanxin.admin.repository.UserRepository;
 import com.yanxin.admin.service.RoleService;
@@ -37,9 +35,6 @@ public class UserServiceImpl implements UserService {
     private RoleService roleService;
 
     @Autowired
-    private AutoIdRepository autoIdRepository;
-
-    @Autowired
     private TokenService tokenService;
 
     @Autowired
@@ -69,25 +64,27 @@ public class UserServiceImpl implements UserService {
     public User insertUser(User user) {
 
         return userRepository.save(user);
+
+
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void insertUserAndRole() {
+    public Role insertUserAndRole() {
 
-        int maxId = autoIdRepository.getMaxId();
-        AutoId autoId = autoIdRepository.findByMaxId(maxId);
-        autoId.setMaxId(maxId + 1L);
-        autoIdRepository.save(autoId);
-
-        User user = insertUser(User.builder().username("yan")
-                .password("123456")
-                .genId((long) maxId)
+        User user = insertUser(User.builder().username("yan2")
+                .password("1234561")
                 .build());
 
-        Role role = roleService.insertRole(Role.builder().name("yan")
-                .description("admin")
+        Role role = roleService.insertRole(Role.builder().name("yan22")
+                .description("admin222222")
                 .build());
+
+        Role role1 = roleService.selectByName("yan22");
+        if (role1 == null) {
+            return role1;
+        }
+        return role1;
     }
 
     @Override

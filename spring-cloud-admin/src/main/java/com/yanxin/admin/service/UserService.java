@@ -1,5 +1,6 @@
 package com.yanxin.admin.service;
 
+import com.yanxin.admin.domain.Role;
 import com.yanxin.admin.domain.User;
 import com.yanxin.admin.dto.LoginUserDTO;
 
@@ -15,7 +16,7 @@ public interface UserService {
 
     User insertUser(User user);
 
-    void insertUserAndRole();
+    Role insertUserAndRole();
 
 
     Boolean login(LoginUserDTO loginUserDTO);

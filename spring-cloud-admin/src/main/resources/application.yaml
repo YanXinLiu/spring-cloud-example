@@ -16,20 +16,20 @@ management:
       exposure:
         include: "*"
 
-  redis:
-    host: 192.168.6.70
-    port: 6379
-    database: 11
-    password: 123456
-    timeout: 30000
-    jedis:
-      pool:
-        max-active: 256
-        max-wait: 30000
-        max-idle: 64
-        min-idle: 32
-    cluster:
-      nodes: 192.168.6.70:6379,192.168.6.71:6379,192.168.6.72:6379
+#  redis:
+#    host: 192.168.6.70
+#    port: 6379
+#    database: 11
+#    password: 123456
+#    timeout: 30000
+#    jedis:
+#      pool:
+#        max-active: 256
+#        max-wait: 30000
+#        max-idle: 64
+#        min-idle: 32
+#    cluster:
+#      nodes: 192.168.6.70:6379,192.168.6.71:6379,192.168.6.72:6379
 
 # token配置
 token:

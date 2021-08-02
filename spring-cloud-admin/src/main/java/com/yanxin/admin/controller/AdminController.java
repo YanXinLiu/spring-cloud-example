@@ -39,7 +39,7 @@ public class AdminController {
     @GetMapping(value = "/test/sec")
     public String sec() {
 
-        userService.selectByName("aaa");
+        userService.insertUserAndRole();
         return "security ok";
     }
 
