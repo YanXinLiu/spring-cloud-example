@@ -2,15 +2,18 @@ group 'com.yanxin.plat.api'
 
 description 'plat api 接口'
 
-apply plugin: 'application'
-apply plugin: 'org.springframework.boot'
+configurations {
+    implementation.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-undertow'
+    implementation.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-log4j2'
+    implementation.exclude group: 'com.fasterxml.jackson.dataformat', module: 'jackson-dataformat-yaml'
+    implementation.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-actuator'
+    testImplementation.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-test'
+}
 
 dependencies {
 
     api project(':spring-cloud-common')
 
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
     // feign
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
     implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config'

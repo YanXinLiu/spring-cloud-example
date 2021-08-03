@@ -1,23 +1,42 @@
 group 'com.yanxin.admin'
 description '监控模块'
 
-apply plugin: 'application'
 apply plugin: 'org.springframework.boot'
 
+version = '1.0-RELEASES'
 
 dependencies {
 
+    implementation 'junit:junit:4.12'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'javax.servlet:javax.servlet-api'
     implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config'
+    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
     // feign
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
     // sentinel
     implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel'
 
-    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
+    // spring data
+    runtime 'mysql:mysql-connector-java'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-data-ldap'
+    implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    // implementation 'redis.clients:jedis'
+
+    // LDAP
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.ldap:spring-ldap-core")
+    implementation("org.springframework.security:spring-security-ldap")
+    implementation("com.unboundid:unboundid-ldapsdk")
+    implementation('io.jsonwebtoken:jjwt:0.9.1')
+
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+
+    api 'cn.hutool:hutool-http:4.5.0'
 }
 
 
