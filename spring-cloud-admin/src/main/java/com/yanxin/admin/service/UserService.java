@@ -2,7 +2,6 @@ package com.yanxin.admin.service;
 
 import com.yanxin.admin.domain.User;
 import com.yanxin.admin.dto.LoginUserDTO;
-import com.yanxin.admin.dto.UserDTO;
 
 import java.util.List;
 
