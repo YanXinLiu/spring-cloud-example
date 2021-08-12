@@ -1,15 +1,18 @@
 package com.yanxin.admin.service.impl;
 
 import com.yanxin.admin.domain.LdapUser;
-import com.yanxin.admin.domain.Role;
 import com.yanxin.admin.domain.User;
 import com.yanxin.admin.dto.LoginUserDTO;
 import com.yanxin.admin.repository.LdapUserRepository;
 import com.yanxin.admin.repository.UserRepository;
-import com.yanxin.admin.service.RoleService;
-import com.yanxin.admin.service.TokenService;
 import com.yanxin.admin.service.UserService;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.filter.EqualsFilter;
 import org.springframework.ldap.query.LdapQueryBuilder;
@@ -26,16 +29,11 @@ import java.util.Optional;
  * @create: 2020-12-24 14:18
  */
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private RoleService roleService;
-
-    @Autowired
-    private TokenService tokenService;
 
     @Autowired
     private LdapUserRepository ldapUserRepository;
@@ -56,35 +54,41 @@ public class UserServiceImpl implements UserService {
         /*return userRepository.findByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("未找到用户:" + username));*/
         return User.builder()
-                .username("ladp").build();
+                .username("root").build();
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    /**
+     * 创建用户，同时使用新的返回值的替换缓存中的值
+     * 创建用户后会将allUsersCache缓存全部清空
+     */
+    @Caching(
+            put = {@CachePut(value = "userCache", key = "#user.id")},
+            evict = {@CacheEvict(value = "userListCache", allEntries = true)}
+    )
     public User insertUser(User user) {
-
-        return userRepository.save(user);
-
+        userRepository.save(user);
+        log.info("id: {}", user.getId());
+        return user;
 
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Role insertUserAndRole() {
+    @Cacheable(value = "userCache", key = "#id")
+    public User getUserById(String id) {
 
-        User user = insertUser(User.builder().username("yan2")
-                .password("1234561")
-                .build());
+        log.info("[BIZ] 未使用缓存");
+        return userRepository.findById(NumberUtils.toLong(id))
+                .orElseThrow(() -> new IllegalArgumentException("未查找到该用户: " + id));
 
-        Role role = roleService.insertRole(Role.builder().name("yan22")
-                .description("admin222222")
-                .build());
+    }
 
-        Role role1 = roleService.selectByName("yan22");
-        if (role1 == null) {
-            return role1;
-        }
-        return role1;
+    @Override
+    @Cacheable(value = "userListCache")
+    public List<User> getAll() {
+
+        return userRepository.findAll();
     }
 
     @Override

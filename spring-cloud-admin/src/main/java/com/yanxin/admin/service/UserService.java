@@ -1,8 +1,10 @@
 package com.yanxin.admin.service;
 
-import com.yanxin.admin.domain.Role;
 import com.yanxin.admin.domain.User;
 import com.yanxin.admin.dto.LoginUserDTO;
+import com.yanxin.admin.dto.UserDTO;
+
+import java.util.List;
 
 /**
  * @program spring-cloud-example
@@ -14,10 +16,11 @@ public interface UserService {
 
     User selectByName(String username);
 
+    User getUserById(String id);
+
+    List<User> getAll();
+
     User insertUser(User user);
-
-    Role insertUserAndRole();
-
 
     Boolean login(LoginUserDTO loginUserDTO);
 }
