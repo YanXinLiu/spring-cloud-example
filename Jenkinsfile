@@ -5,12 +5,12 @@ podTemplate(
     namespace: "kube-ops",
     label: label,
     // 配置容器信息
-    /* containers: [
+    containers: [
         containerTemplate(
-            name: "jnlp",
+            name: "jnlp-2",
             image: "jenkins"
         ),
-    ], */
+    ],
     // 挂载，主要是为了使用宿主机的docker
     volumes: [
         hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'),
