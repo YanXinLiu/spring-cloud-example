@@ -8,7 +8,7 @@ podTemplate(
     containers: [
         containerTemplate(
             name: "jnlp-2",
-            image: "jenkins"
+            image: "jenkins:latest"
         ),
     ],
     // 挂载，主要是为了使用宿主机的docker
