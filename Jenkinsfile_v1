@@ -1,0 +1,89 @@
+podTemplate(label: 'jnlp-slave', cloud: 'kubernetes-sit', containers: [
+    containerTemplate(
+        name: 'jnlp',
+        image: '172.23.101.176/ops/jenkins-slave',
+        alwaysPullImage: true
+    ),
+  ],
+  volumes: [
+    hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'),
+    hostPathVolume(mountPath: '/usr/bin/docker', hostPath: '/usr/bin/docker'),
+    hostPathVolume(mountPath: '/usr/local/java', hostPath: '/usr/local/java'),
+    hostPathVolume(mountPath: '/usr/local/maven', hostPath: '/usr/local/maven'),
+    hostPathVolume(mountPath: '/usr/bin/node', hostPath: '/usr/bin/node'),
+    hostPathVolume(mountPath: '/usr/local/node', hostPath: '/usr/local/node'),
+  ],
+  imagePullSecrets: ['registry-pull-secret-2th'],
+)
+
+{
+    node("jnlp-slave"){
+        stage('Git Checkout'){
+            echo "Now checking out from git ---------------------"
+            checkout([$class: 'GitSCM', branches: [[name: '*/${branch}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'd18a6715-c60d-4f49-a5a6-e9dbeda34055', url: 'git@172.23.101.175:hms/hms-new-micro.git']]])
+        }
+        stage('Auto Testing'){
+            echo "Auto Testing ---------------------"
+        }
+        stage('SonarQube analysis') {
+            if(env.skipscan == "true"){
+                echo "---------跳过SonarQube代码扫描----------"
+            }else {
+                withSonarQubeEnv(installationName: 'SonarQube-servers') {
+                    sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.6.0.1398:sonar -Dsonar.java.binaries=target/sonar'
+                }
+            }
+        }
+        stage('Maven Build'){
+            echo "Start Maven working ---------------------"
+            sh '''
+            cp /home/jenkins/workspace/${JOB_NAME}/micro-hms-new-basic/src/main/docker/Dockerfile /home/jenkins/workspace/
+            cd /home/jenkins/workspace/
+            ls -a
+            sed -i "s/PROFILE/${Env}/" Dockerfile
+            '''
+            if(env.Env == "prod"){
+                sh '''
+                cd /home/jenkins/workspace/
+                ls -a
+                sed -i "s/JAVA_OPTS_ENV/JAVA_OPTS_PROD/" Dockerfile
+                sed -i "s/skywalking-app-name/micro-hms-new-basic-${Env}/" Dockerfile
+                '''
+            }else{
+                sh '''
+                cd /home/jenkins/workspace/
+                ls -a
+                sed -i "s/JAVA_OPTS_ENV/JAVA_OPTS/" Dockerfile
+                '''
+            }
+            sh '''
+            cd /home/jenkins/workspace/${JOB_NAME}
+            mvn -U -pl micro-hms-new-basic -am clean package -P${Env} -DskipTests docker:build
+            '''
+        }
+        stage('Deploy to Aliyun K8S system'){
+            echo "Deploy to k8s system ---------------------"
+            sh '''
+            GIT_REVISION=`git rev-parse --short HEAD`
+            cd micro-hms-new-basic/scripts
+            sed -i "/172.23.101.176/{s/latest/${GIT_REVISION}/}" micro-hms-new-basic.yaml
+            sed -i "s/environment/${Env}/" micro-hms-new-basic.yaml
+            '''
+            if(env.Env == "sit"){
+                echo "---------sit环境----------"
+                kubernetesDeploy configs: 'micro-hms-new-basic/scripts/micro-hms-new-basic.yaml', kubeConfig: [path: ''], kubeconfigId: '3362903f-cd24-4425-bbb1-bb3238f5a0d1', secretName: '', secretNamespace: 'hmsnew-service', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
+            }else if(env.Env == "uat"){
+                echo "---------uat环境----------"
+                kubernetesDeploy configs: 'micro-hms-new-basic/scripts/micro-hms-new-basic.yaml', kubeConfig: [path: ''], kubeconfigId: '8e2174bf-e872-4adf-b8d2-e8e527830d33', secretName: '', secretNamespace: 'hmsnew-service', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
+            }else if(env.Env == "prod"){
+                echo "---------prod环境----------"
+                kubernetesDeploy configs: 'micro-hms-new-basic/scripts/micro-hms-new-basic.yaml', kubeConfig: [path: ''], kubeconfigId: 'bccfe0af-b5f7-4a21-bfd1-fe7a3e0169fb', secretName: '', secretNamespace: 'hmsnew-service', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
+            }else{
+                echo "-----------其他非自然、非人文环境，也许是火星，也许是某二次元空间----------"
+            }
+        }
+        stage('Integrating Testing'){
+            echo "Now start our integrating testing ---------------------"
+        }
+    }
+}
