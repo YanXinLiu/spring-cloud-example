@@ -39,9 +39,9 @@ public class AdminController {
     @GetMapping(value = "/test/sec")
     public String sec() {
 
-        userService.selectByName("aaa");
         return "security ok";
     }
+
 
     @GetMapping(value = "/updConfig")
     public String updateConfig() {

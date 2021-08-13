@@ -1,45 +1,29 @@
-pipeline {
-    agent any
-    parameters {
-        choice (
-            description: '模块名称', name: 'NAME', choices: ['spring-cloud-admin','spring-cloud-platform']
-        )
-    }
-    stages {
-        stage('prepare') {
-            steps{
-                echo "1.git tag Stage"
-                script{
-                    build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
-                }
-            }
+// 定义Jenkins-agent在k8s中的pod名称，不要重名
+def label = "node-jnlp1"
+podTemplate(
+    cloud: "kubernetes",
+    namespace: "kube-ops",
+    label: label,
+    // 配置容器信息
+    containers: [
+        containerTemplate(
+            name: "jnlp-2",
+            image: "jenkins"
+        ),
+    ],
+    // 挂载，主要是为了使用宿主机的docker
+    volumes: [
+        hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'),
+        hostPathVolume(mountPath: '/usr/bin/docker', hostPath: '/usr/bin/docker'),
+        hostPathVolume(mountPath: '/root/.m2', hostPath: '/root/.m2')
+    ]
+) {
+    node(label) {
+        // 拉取代码
+        stage("clone") {
+            // checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'jenkinsgitlab', url: 'ssh://git@192.168.0.102:13022/istiodemo/testserverone.git']]])
+            echo "1.Clone Stage"
+            sh "docker info"
         }
-        stage('Build') {
-            agent {
-                docker {
-                    image 'gradle:6.5.1'
-                    args '-v $HOME/.gradle/:/root/.gradle/ -v $HOME/.m2/:/root/.m2/'
-                }
-            }
-            steps {
-                echo "2.Build Docker Image Stage"
-                sh 'cd ${params.NAME} && gradle clean build'
-                sh 'cd ${params.Name} && docker build -t harbor.jkservice.org/dpa/spring-cloud-admin:${build_tag} .'
-            }
-        }
-        /* stage('Push') {
-            steps {
-                sh 'echo "3.Push Docker Image Stage"'
-                withCredentials([usernamePassword(credentialsId: 'jk-harbor', passwordVariable: 'jk-harborPassword', usernameVariable: 'jk-harborUser')]) {
-                    sh "docker push harbor.jkservice.org/dpa/spring-cloud-admin:${build_tag}"
-                }
-            }
-        }
-        stage('Deploy') {
-            steps {
-                sh 'echo "4. Deploy Stage"'
-                sh 'kubectl apply -f cloud.yaml'
-            }
-        } */
     }
 }
