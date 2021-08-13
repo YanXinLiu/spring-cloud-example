@@ -1,14 +1,12 @@
-// 定义Jenkins-agent在k8s中的pod名称，不要重名
-def label = "node-jnlp1"
 podTemplate(
     cloud: "kubernetes",
     namespace: "kube-ops",
-    label: label,
+    label: "jnlp-slave",
     // 配置容器信息
     containers: [
         containerTemplate(
-            name: "jnlp-2",
-            image: "jenkins:latest"
+            name: "jnlp",
+            image: "jenkins:lts"
         ),
     ],
     // 挂载，主要是为了使用宿主机的docker
@@ -18,7 +16,7 @@ podTemplate(
         hostPathVolume(mountPath: '/root/.m2', hostPath: '/root/.m2')
     ]
 ) {
-    node(label) {
+    node("jnlp-slave") {
         // 拉取代码
         stage("clone") {
             // checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'jenkinsgitlab', url: 'ssh://git@192.168.0.102:13022/istiodemo/testserverone.git']]])
