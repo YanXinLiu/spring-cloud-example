@@ -6,7 +6,8 @@ podTemplate(
     containers: [
         containerTemplate(
             name: "jnlp",
-            image: "jenkins:lts"
+            image: "jenkins/jenkins:lts"
+            alwaysPullImage: true
         ),
     ],
     // 挂载，主要是为了使用宿主机的docker
@@ -14,7 +15,8 @@ podTemplate(
         hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'),
         hostPathVolume(mountPath: '/usr/bin/docker', hostPath: '/usr/bin/docker'),
         hostPathVolume(mountPath: '/root/.m2', hostPath: '/root/.m2')
-    ]
+    ],
+    imagePullSecrets: ['registry-pull-secret-2th'],
 ) {
     node("jnlp-slave") {
         // 拉取代码
