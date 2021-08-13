@@ -6,7 +6,7 @@ podTemplate(
     containers: [
         containerTemplate(
             name: "jnlp",
-            image: "jenkins/jenkins:lts"
+            image: "jenkins/jenkins:lts",
             alwaysPullImage: true
         ),
     ],
