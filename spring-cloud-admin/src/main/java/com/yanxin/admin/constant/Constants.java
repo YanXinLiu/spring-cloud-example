@@ -67,7 +67,7 @@ public class Constants {
     /**
      * 用户ID
      */
-    public static final String JWT_USERID = "userid";
+    public static final String JWT_USERID = "userId";
 
     /**
      * 用户名称
