@@ -29,6 +29,12 @@ podTemplate(
 
         stage("build") {
             // build && push can use gradle-docker-plugin come true
+            agent {
+                docker {
+                    image 'gradle:6.5.1'
+                    args '-v $HOME/.gradle/:/root/.gradle/ -v $HOME/.m2/:/root/.m2/'
+                }
+            }
             sh '''
                 echo "start gradle build ========="
                 gradle ${params.NAME}:build
