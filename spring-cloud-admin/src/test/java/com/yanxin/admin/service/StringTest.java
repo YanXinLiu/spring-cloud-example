@@ -4,10 +4,14 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
+import org.junit.Assert;
 import org.junit.Test;
 
+import javax.validation.constraints.AssertTrue;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -65,6 +69,14 @@ public class StringTest {
     public void idTest() {
 
         System.out.println(IdUtil.createSnowflake(31L, 31L).nextId());
+    }
+
+    @Test
+    public void intTest() {
+
+        Pattern pattern = Pattern.compile("断言");
+        Matcher match = pattern.matcher("断言");
+        Assert.assertTrue(match.find());
     }
 
     @Test

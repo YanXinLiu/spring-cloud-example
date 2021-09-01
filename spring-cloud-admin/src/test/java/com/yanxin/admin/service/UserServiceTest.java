@@ -60,7 +60,5 @@ public class UserServiceTest {
 
     @Test
     public void testRollBack() {
-
-        userService.insertUserAndRole();
     }
 }
