@@ -15,6 +15,13 @@ pipeline {
             }
         }
         stage('Build') {
+             steps{
+                container('gradle:6.5.1'){
+                    sh '''
+
+                    '''
+                }
+            }
             agent {
                 docker {
                     image 'gradle:6.5.1'

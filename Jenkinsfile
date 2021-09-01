@@ -13,6 +13,7 @@ podTemplate(
     volumes: [
         hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'),
         hostPathVolume(mountPath: '/usr/bin/docker', hostPath: '/usr/bin/docker'),
+        hostPathVolume(mountPath: '/usr/bin/gradle', hostPath: '/usr/bin/gradle'),
         hostPathVolume(mountPath: '/root/.m2', hostPath: '/root/.m2')
     ]
 ) {
@@ -29,16 +30,10 @@ podTemplate(
 
         stage("build") {
             // build && push can use gradle-docker-plugin come true
-            agent {
-                docker {
-                    image 'gradle:6.5.1'
-                    args '-v $HOME/.gradle/:/root/.gradle/ -v $HOME/.m2/:/root/.m2/'
-                }
-            }
             sh '''
                 echo "start gradle build ========="
                 gradle ${params.NAME}:build
-                cd ${params.Name} && docker build -t harbor.jkservice.org/dpa/spring-cloud-admin:${build_tag} .
+                cd ${params.Name} && docker build -t harbor.jkservice.org/dpa/spring-cloud-admin:v1 .
             '''
         }
 
