@@ -30,8 +30,8 @@ podTemplate(
 
         stage("build") {
             // build && push can use gradle-docker-plugin come true
+            echo "start gradle build ========="
             sh '''
-                echo "start gradle build ========="
                 gradle ${params.NAME}:build
                 cd ${params.Name} && docker build -t harbor.jkservice.org/dpa/spring-cloud-admin:v1 .
             '''
