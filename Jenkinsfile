@@ -32,8 +32,8 @@ podTemplate(
             // build && push can use gradle-docker-plugin come true
             echo "start gradle build ========="
             sh '''
-                cp /home/jenkins/workspace/${JOB_NAME}/ /home/jenkins/workspace/
-                cd /home/jenkins/workspace/
+                cp /home/jenkins/agent/workspace/${JOB_NAME}/ /home/jenkins/workspace/
+                cd /home/jenkins/agent/workspace/
                 gradle ${params.NAME}:build
                 cd ${params.Name} && docker build -t harbor.jkservice.org/dpa/spring-cloud-admin:v1 .
             '''
