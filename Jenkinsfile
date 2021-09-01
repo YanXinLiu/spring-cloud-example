@@ -13,7 +13,7 @@ podTemplate(
     volumes: [
         hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'),
         hostPathVolume(mountPath: '/usr/bin/docker', hostPath: '/usr/bin/docker'),
-        hostPathVolume(mountPath: '/opt/gradle/bin/gradle', hostPath: '/usr/local/bin/gradle'),
+        hostPathVolume(mountPath: '/usr/local/bin/gradle', hostPath: '/usr/local/bin/gradle'),
         hostPathVolume(mountPath: '/root/.m2', hostPath: '/root/.m2')
     ]
 ) {
