@@ -33,7 +33,6 @@ podTemplate(
                 echo "start gradle build ========="
                 gradle ${params.NAME}:build
                 cd ${params.Name} && docker build -t harbor.jkservice.org/dpa/spring-cloud-admin:${build_tag} .
-                cp /home/jenkins/workspace/${JOB_NAME}/micro-hms-new-basic/src/main/docker/Dockerfile /home/jenkins/workspace/
             '''
         }
 
