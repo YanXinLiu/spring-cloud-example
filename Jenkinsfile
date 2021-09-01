@@ -34,8 +34,8 @@ podTemplate(
             sh '''
                 cp -r /home/jenkins/agent/workspace/ /home/jenkins/workspace/
                 cd /home/jenkins/agent/workspace/
+                ls -al /usr/local/bin | grep gradle
                 gradle -v
-                ls -a
                 gradle ${params.NAME}:build
                 cd ${params.Name} && docker build -t harbor.jkservice.org/dpa/spring-cloud-admin:v1 .
             '''
