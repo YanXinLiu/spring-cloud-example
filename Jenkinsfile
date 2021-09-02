@@ -13,7 +13,7 @@ podTemplate(
     volumes: [
         hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'),
         hostPathVolume(mountPath: '/usr/bin/docker', hostPath: '/usr/bin/docker'),
-        hostPathVolume(mountPath: '/usr/local/bin/gradle', hostPath: '/usr/local/bin/gradle'),
+        hostPathVolume(mountPath: '/usr/bin/gradle', hostPath: '/usr/bin/gradle'),
         hostPathVolume(mountPath: '/root/.m2', hostPath: '/root/.m2')
     ]
 ) {
@@ -34,6 +34,7 @@ podTemplate(
             sh '''
                 cp -r /home/jenkins/agent/workspace/ /home/jenkins/workspace/
                 cd /home/jenkins/agent/workspace/
+                whoami
                 ls -al /usr/local/bin | grep gradle
                 gradle -v
                 gradle ${params.NAME}:build
