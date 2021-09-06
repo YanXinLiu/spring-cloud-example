@@ -6,7 +6,7 @@ podTemplate(
     containers: [
         containerTemplate(
             name: "jnlp",
-            image: "harbor.jkservice.org/dpa/jnlp-slave:v1"
+            image: "harbor.jkservice.org/dpa/jnlp-slave:v1",
             alwaysPullImage: true
         ),
     ],
