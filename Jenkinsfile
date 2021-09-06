@@ -6,7 +6,8 @@ podTemplate(
     containers: [
         containerTemplate(
             name: "jnlp",
-            image: "cnych/jenkins:jnlp6"
+            image: "harbor.jkservice.org/dpa/jnlp-slave:v1"
+            alwaysPullImage: true
         ),
     ],
     // 挂载，主要是为了使用宿主机的docker
