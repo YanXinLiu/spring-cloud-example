@@ -6,7 +6,7 @@ podTemplate(
     containers: [
         containerTemplate(
             name: "jnlp",
-            image: "harbor.jkservice.org/dpa/jnlp-slave:v1"
+            image: "jenkins/agent"
         ),
     ],
     // 挂载，主要是为了使用宿主机的docker
@@ -32,6 +32,7 @@ podTemplate(
             // build && push can use gradle-docker-plugin come true
             echo "start gradle build ========="
             sh '''
+                docker info
                 cp -r /home/jenkins/agent/workspace/ /home/jenkins/workspace/
                 cd /home/jenkins/agent/workspace/
                 chmod a+x /usr/bin/gradle
