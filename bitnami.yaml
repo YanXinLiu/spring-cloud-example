@@ -1,0 +1,69 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbit
+  namespace: kube-ops
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbit
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: rabbit
+    spec:
+      containers:
+        - image: bitnami/rabbitmq:3.8
+          imagePullPolicy: IfNotPresent
+          name: rabbit
+          env:
+            - name: RABBITMQ_USERNAME
+              value: admin
+            - name: RABBITMQ_PASSWORD
+              value: admin
+          ports:
+            - containerPort: 15672
+              name: rabbit-15672
+              protocol: TCP
+            - containerPort: 5672
+              name: rabbit-5672
+              protocol: TCP
+          resources: {}
+          volumeMounts:
+            - name: rabbit-data
+              subPath: data
+              mountPath: /var/rabbitmq
+      volumes:
+        - name: rabbit-data
+          persistentVolumeClaim:
+            claimName: opspvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbit-service
+  namespace: kube-ops
+  labels:
+    app: rabbit
+spec:
+  ports:
+    - name: rabbit-15672
+      nodePort: 31199
+      port: 15672
+      protocol: TCP
+      targetPort: 15672
+    - name: rabbit-5672
+      nodePort: 31190
+      port: 5672
+      protocol: TCP
+      targetPort: 5672
+  selector:
+    app: rabbit
+  type: NodePort

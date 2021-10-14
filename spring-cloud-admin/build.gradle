@@ -21,7 +21,11 @@ dependencies {
     runtime 'mysql:mysql-connector-java'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-data-ldap'
-    // implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+    // org.elasticsearch.client:elasticsearch-rest-high-level-client:6.8.7 {
+    //        exclude group: 'org.elasticsearch.client', module: 'elasticsearch-rest-high-level-client'
+    //    }
+    implementation ('org.springframework.boot:spring-boot-starter-data-elasticsearch')
+    // implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.6.2'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     // implementation 'redis.clients:jedis'
 
@@ -31,6 +35,9 @@ dependencies {
     implementation("org.springframework.security:spring-security-ldap")
     implementation("com.unboundid:unboundid-ldapsdk")
     implementation('io.jsonwebtoken:jjwt:0.9.1')
+
+
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
 
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'

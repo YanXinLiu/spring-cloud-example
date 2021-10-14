@@ -16,6 +16,41 @@ spring:
     host: 192.168.3.186
     port: 6379
 
+  elasticsearch:
+    rest:
+      uris: 192.168.4.91:9200
+      username: elastic
+      password: 123qweASD
+
+  rabbitmq:
+    username:
+    password:
+    host: 192.168.3.17
+    port: 5671
+    ssl:
+      enabled: true
+      keyStore: classpath:client_key.p12
+      keyStoreType: PKCS12
+      keyStorePassword:
+      trustStore: classpath:rabbitstore
+      trustStoreType: JKS
+      trustStorePassword: jkstack
+      algorithm: TLSv1.2
+      verifyHostname: false
+      validate-server-certificate: false
+#    ssl:
+#      enabled: true
+#      # keytool 密码
+#      trust-store-password: jkstack
+#      algorithm: TLSv1.2
+#      key-store: classpath:client_key.p12
+#      # tls-gen 密码
+#      verify-hostname: false
+#      validate-server-certificate: false
+#      # key-store-password: jkstack
+#      trust-store: classpath:rabbitstore
+
+
 management:
   endpoints:
     web:
