@@ -32,6 +32,7 @@ podTemplate(
             // build && push can use gradle-docker-plugin come true
             echo "start gradle build ========="
             sh '''
+                docker ps
                 cp -r /home/jenkins/agent/workspace/ /home/jenkins/workspace/
                 cd /home/jenkins/agent/workspace/
                 chmod a+x /usr/bin/gradle
