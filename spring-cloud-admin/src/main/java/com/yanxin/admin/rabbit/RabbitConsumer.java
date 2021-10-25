@@ -17,6 +17,7 @@ public class RabbitConsumer {
 
     @RabbitHandler
     public void process(Object obj) {
-        System.out.println("DirectReceiver消费者收到消息  process_queue_111 : " + obj.toString());
+        throw new RuntimeException("重试机制");
+        // System.out.println("DirectReceiver消费者收到消息  process_queue_111 : " + obj.toString());
     }
 }

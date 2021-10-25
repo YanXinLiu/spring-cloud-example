@@ -32,6 +32,16 @@ subprojects {
     }
 
     repositories {
+        maven{
+            url "http://192.168.1.181/repository/maven-releases/"
+            authentication {
+                basic(BasicAuthentication)
+            }
+            credentials {
+                username = 'jkpublic'
+                password = 'JKpublic@1'
+            }
+        }
         mavenLocal()
         maven { url "https://maven.aliyun.com/repository/public" }
         jcenter()

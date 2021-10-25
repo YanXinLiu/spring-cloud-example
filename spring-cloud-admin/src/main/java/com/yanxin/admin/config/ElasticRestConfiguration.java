@@ -1,4 +1,3 @@
-/*
 package com.yanxin.admin.config;
 
 import com.yanxin.admin.properties.ElasticClusterProperties;
@@ -30,4 +29,3 @@ public class ElasticRestConfiguration extends AbstractElasticsearchConfiguration
     }
 
 }
-*/
