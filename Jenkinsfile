@@ -8,7 +8,7 @@ podTemplate(
             name: "jnlp",
             // image: "harbor.jkservice.org/dpa/jnlp-slave@sha256:5fae59b5ad258987a81474b73a58adc8a40ec0b453cb9a20a1f490844722936c"
             // image: "cnych/jenkins:jnlp6"
-            image: "jenkinsci/jnlp-slave",
+            image: "jenkins/inbound-agent:4.7-1",
             alwaysPullImage: false
         ),
     ],
