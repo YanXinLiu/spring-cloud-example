@@ -90,7 +90,7 @@ subprojects {
     tasks.clean.dependsOn(cleanOutDir)
 
 
-    uploadArchives {
+    /*uploadArchives {
         repositories {
             mavenDeployer {
                 snapshotRepository(url: "http://192.168.3.89:8081/repository/maven-snapshots/") {
@@ -98,6 +98,24 @@ subprojects {
                 }
                 repository(url: "http://192.168.3.89:8081/repository/maven-releases/") {
                     authentication(userName: "admin", password: "4b1HDSHmwyPxDTWP")
+                }
+            }
+        }
+    }*/
+    project.ext {
+        nexusUrl = 'http://192.168.1.181/repository/maven-releases/'
+        username = 'jkpublic'
+        password = 'JKpublic@1'
+    }
+
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                snapshotRepository(url: "${nexusUrl}") {
+                    authentication(userName: "${username}", password: "${password}")
+                }
+                repository(url: "${nexusUrl}") {
+                    authentication(userName: "${username}", password: "${password}")
                 }
             }
         }

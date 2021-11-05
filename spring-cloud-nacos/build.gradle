@@ -1,21 +1,21 @@
 group 'com.yanxin.nacos'
 description '配置中心模块'
+version = '1.0.2-RELEASE'
 
-apply plugin: 'org.springframework.boot'
+configurations {
+    implementation.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-undertow'
+    implementation.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-log4j2'
+    implementation.exclude group: 'com.fasterxml.jackson.dataformat', module: 'jackson-dataformat-yaml'
+    implementation.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-actuator'
+    testImplementation.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-test'
+}
 
 
 dependencies {
 
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
-    // feign
-    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
-    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config'
-    // sentinel
-    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel'
-    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
+    implementation 'org.springframework.boot:spring-boot-autoconfigure:2.3.3.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-configuration-processor:2.3.3.RELEASE'
+    compileOnly 'com.alibaba:fastjson:1.2.73'
+    compile 'org.springframework.boot:spring-boot-starter-data-elasticsearch:2.3.3.RELEASE'
 }
 

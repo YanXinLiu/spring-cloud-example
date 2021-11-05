@@ -1,6 +1,6 @@
-package com.yanxin.admin.elastic.repository;
+package com.yanxin.nacos.repository;
 
-import com.yanxin.admin.elastic.entity.Item;
+import com.yanxin.nacos.entity.TaskInfo;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 /**
@@ -9,6 +9,7 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
  * @author: LiuYanXin
  * @create: 2021-09-23 15:46
  */
-public interface ItemRepository extends ElasticsearchRepository<Item, String> {
+public interface TaskExecuteInfoRepository extends ElasticsearchRepository<TaskInfo, String> {
+
 
 }
