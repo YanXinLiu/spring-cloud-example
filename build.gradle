@@ -49,13 +49,6 @@ subprojects {
 
 
     configurations {
-        /*developmentOnly
-        runtimeClasspath {
-            extendsFrom developmentOnly
-        }
-        compileOnly {
-            extendsFrom annotationProcessor
-        }*/
         // 排除 tomcat 依赖（使用 undertow）
         implementation.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
     }
@@ -90,7 +83,7 @@ subprojects {
     tasks.clean.dependsOn(cleanOutDir)
 
 
-    /*uploadArchives {
+    uploadArchives {
         repositories {
             mavenDeployer {
                 snapshotRepository(url: "http://192.168.3.89:8081/repository/maven-snapshots/") {
@@ -101,14 +94,14 @@ subprojects {
                 }
             }
         }
-    }*/
+    }
     project.ext {
         nexusUrl = 'http://192.168.1.181/repository/maven-releases/'
         username = 'jkpublic'
         password = 'JKpublic@1'
     }
 
-    uploadArchives {
+    /*uploadArchives {
         repositories {
             mavenDeployer {
                 snapshotRepository(url: "${nexusUrl}") {
@@ -119,6 +112,6 @@ subprojects {
                 }
             }
         }
-    }
+    }*/
 }
 
