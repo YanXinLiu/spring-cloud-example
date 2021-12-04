@@ -23,22 +23,23 @@ spring:
       username: elastic
       password: 123qweASD
 
-#  rabbitmq:
-#    username:
-#    password:
-#    host: 192.168.3.17
-#    port: 5671
-#    ssl:
-#      enabled: false
-#      keyStore: classpath:client_key.p12
-#      keyStoreType: PKCS12
-#      keyStorePassword:
-#      trustStore: classpath:rabbitstore
-#      trustStoreType: JKS
-#      trustStorePassword: jkstack
-#      algorithm: TLSv1.2
-#      verifyHostname: false
-#      validate-server-certificate: false
+
+  rabbitmq:
+    username:
+    password:
+    host: 192.168.3.17
+    port: 5671
+    ssl:
+      enabled: true
+      keyStore: classpath:client_key.p12
+      keyStoreType: PKCS12
+      keyStorePassword: ''
+      trustStore: classpath:rabbitstore
+      trustStoreType: JKS
+      trustStorePassword: jkstack
+      algorithm: TLSv1.2
+      verifyHostname: false
+      validate-server-certificate: false
 
 
 management:

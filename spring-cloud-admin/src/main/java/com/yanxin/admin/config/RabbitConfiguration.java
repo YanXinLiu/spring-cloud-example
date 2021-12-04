@@ -1,27 +1,27 @@
-//package com.yanxin.admin.config;
-//
-//import com.rabbitmq.client.DefaultSaslConfig;
-//import org.springframework.amqp.core.*;
-//import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
-//import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
-//import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-//import org.springframework.amqp.rabbit.connection.RabbitConnectionFactoryBean;
-//import org.springframework.amqp.rabbit.core.RabbitTemplate;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.autoconfigure.amqp.RabbitProperties;
-//import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
-//import org.springframework.retry.backoff.ExponentialBackOffPolicy;
-//import org.springframework.retry.policy.SimpleRetryPolicy;
-//import org.springframework.retry.support.RetryTemplate;
-//
-//
-//
-//@Configuration
-//public class RabbitConfiguration {
-//
-//
+package com.yanxin.admin.config;
+
+import com.rabbitmq.client.DefaultSaslConfig;
+import org.springframework.amqp.core.*;
+import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
+import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.connection.RabbitConnectionFactoryBean;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.amqp.RabbitProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.retry.backoff.ExponentialBackOffPolicy;
+import org.springframework.retry.policy.SimpleRetryPolicy;
+import org.springframework.retry.support.RetryTemplate;
+
+
+
+@Configuration
+public class RabbitConfiguration {
+
+
 //    @Autowired
 //    private ConnectionFactory connectionFactory;
 //
@@ -148,5 +148,5 @@
 //    public Binding binding() {
 //        return BindingBuilder.bind(queue()).to(defaultExchange()).with(ROUTING_KEY_A);
 //    }
-//
-//}
+
+}
