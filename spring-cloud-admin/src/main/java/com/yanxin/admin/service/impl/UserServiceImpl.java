@@ -59,10 +59,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    /**
-     * 创建用户，同时使用新的返回值的替换缓存中的值
-     * 创建用户后会将allUsersCache缓存全部清空
-     */
     @Caching(
             put = {@CachePut(value = "userCache", key = "#user.id")},
             evict = {@CacheEvict(value = "userListCache", allEntries = true)}

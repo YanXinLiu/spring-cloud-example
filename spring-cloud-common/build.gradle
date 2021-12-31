@@ -12,4 +12,5 @@ configurations {
 dependencies {
     // hutool
     api 'cn.hutool:hutool-http:4.5.0'
+    api 'org.apache.logging.log4j:log4j-core:2.14.2'
 }

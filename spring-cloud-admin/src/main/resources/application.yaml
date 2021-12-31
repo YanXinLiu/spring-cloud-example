@@ -25,21 +25,30 @@ spring:
 
 
   rabbitmq:
-    username:
-    password:
-    host: 192.168.3.17
-    port: 5671
-    ssl:
-      enabled: true
-      keyStore: classpath:client_key.p12
-      keyStoreType: PKCS12
-      keyStorePassword: ''
-      trustStore: classpath:rabbitstore
-      trustStoreType: JKS
-      trustStorePassword: jkstack
-      algorithm: TLSv1.2
-      verifyHostname: false
-      validate-server-certificate: false
+    username: admin
+    password: OcFPntqQb2W
+    host: 192.168.3.186
+    port: 5672
+    listener:
+      simple:
+        retry:
+          enabled: true
+          max-attempts: 2
+          initial-interval: 3000
+      direct:
+        acknowledge-mode: manual
+        prefetch: 1
+#    ssl:
+#      enabled: true
+#      keyStore: classpath:client_key.p12
+#      keyStoreType: PKCS12
+#      keyStorePassword: ''
+#      trustStore: classpath:rabbitstore
+#      trustStoreType: JKS
+#      trustStorePassword: jkstack
+#      algorithm: TLSv1.2
+#      verifyHostname: false
+#      validate-server-certificate: false
 
 
 management:

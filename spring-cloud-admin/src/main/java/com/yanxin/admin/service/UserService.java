@@ -19,6 +19,12 @@ public interface UserService {
 
     List<User> getAll();
 
+    /**
+     * 创建用户，同时使用新的返回值的替换缓存中的值
+     * 创建用户后会将allUsersCache缓存全部清空
+     * 缓存键值对 value::key
+     * 不填value value::default key
+     */
     User insertUser(User user);
 
     Boolean login(LoginUserDTO loginUserDTO);

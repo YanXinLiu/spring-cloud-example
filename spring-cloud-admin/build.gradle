@@ -7,7 +7,7 @@ version = '1.0-RELEASES'
 
 dependencies {
 
-    implementation 'junit:junit:4.12'
+    api 'cn.hutool:hutool-all:5.3.10'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'javax.servlet:javax.servlet-api'
     implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config'
@@ -31,11 +31,8 @@ dependencies {
     implementation("com.unboundid:unboundid-ldapsdk")
     implementation('io.jsonwebtoken:jjwt:0.9.1')
     implementation 'org.springframework.boot:spring-boot-starter-amqp'
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
 
-    api 'cn.hutool:hutool-all:5.3.10'
 }
 
 
