@@ -7,4 +7,6 @@ findProject(':spring-cloud-platform:spring-cloud-plat-api')?.name = 'spring-clou
 include 'spring-cloud-platform:spring-cloud-plat-biz'
 findProject(':spring-cloud-platform:spring-cloud-plat-biz')?.name = 'spring-cloud-plat-biz'
 include 'spring-cloud-common'
+include 'spring-cloud-workflow'
+include 'spring-cloud-credit'
 
