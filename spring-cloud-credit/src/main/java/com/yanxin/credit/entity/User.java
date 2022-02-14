@@ -1,16 +1,13 @@
 package com.yanxin.credit.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Builder;
 import lombok.Data;
-import lombok.experimental.Tolerate;
 
 import java.io.Serializable;
 import java.util.Date;
 
 @TableName
 @Data
-@Builder
 public class User implements Serializable {
 
     private Long id;
@@ -79,10 +76,4 @@ public class User implements Serializable {
      * 更新时间
      */
     private Date updateTime;
-
-
-    @Tolerate
-    public User() {
-
-    }
 }
