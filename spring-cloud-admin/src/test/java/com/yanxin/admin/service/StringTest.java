@@ -188,4 +188,26 @@ public class StringTest {
         System.out.println(df.format(date));
         return df.format(date);
     }
+
+    @Test
+    public void httpStrTest(){
+
+        String url = "http://gitlab.devops.zhaokangshuai.cn/devops/golang-cicd.git";
+        final String flagStr = "://";
+        String prefix = StrUtil.subBefore(url, flagStr, true);
+        String uri = StrUtil.subAfter(url, flagStr, true);
+        String serverUrl = prefix + flagStr + StrUtil.subBefore(uri, "/", false);
+        System.out.println(serverUrl);
+
+
+    }
+
+    @Test
+    public void containTest() {
+
+        String ips = "192.169.3.186,10.202.0.159";
+        Assert.assertTrue(StrUtil.containsAny(ips, StrUtil.split("10.202.0.159", ",")));
+
+
+    }
 }

@@ -28,3 +28,20 @@ token:
   secret: abcdefghijklmnopqrstuvwxyz
   # 令牌有效期（默认30分钟）
   expireTime: 30
+camel:
+  component:
+    enabled: true
+    smpp:
+      configuration:
+        password: wrL:m2fX
+        system-id: Phoenix_ra2
+        source-addr-ton: 5 #0x05
+        source-addr-npi: 1 #0x01
+        dest-addr-npi: 0 #0x01
+        dest-addr-ton: 0 #0x01
+        registered-delivery: 1
+        host: 93.158.78.4
+        port: 3600
+  springboot:
+    name: smpp-app
+    main-run-controller: false

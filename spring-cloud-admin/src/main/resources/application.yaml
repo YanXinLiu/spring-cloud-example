@@ -5,11 +5,11 @@ spring:
     password: OcFPntqQb2W
     driver-class-name: com.mysql.cj.jdbc.Driver
   # LDAP连接配置
-#  ldap:
-#    urls: ldap://192.168.1.98
-#    base: DC=jktest,DC=cn
-#    username: administrator
-#    password: Adadmin@jk888
+  ldap:
+    urls: ldap://192.168.1.98
+    base: DC=jktest,DC=cn
+    username: administrator
+    password: Adadmin@jk888
   redis:
     database: 10
     password: OcFPntqQb2W

@@ -6,6 +6,8 @@ import com.yanxin.admin.feign.NacosFeignService;
 import com.yanxin.admin.service.LdapConfigService;
 import com.yanxin.admin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ldap.core.ContextSource;
+import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +31,11 @@ public class AdminController {
     @Autowired
     private LdapConfigService ldapConfigService;
 
+    @Autowired
+    private ContextSource contextSource;
+
+    @Autowired
+    private LdapTemplate ldapTemplate;
 
     @GetMapping(value = "/test/hi")
     public String test() {
@@ -36,7 +43,7 @@ public class AdminController {
         return nacosFeignService.test("Hi Feign");
     }
 
-    @GetMapping(value = "/test/sec")
+    @PostMapping(value = "/test/sec")
     public String sec() {
 
         return "security ok";
@@ -46,15 +53,40 @@ public class AdminController {
     @GetMapping(value = "/updConfig")
     public String updateConfig() {
 
-        userService.selectByName("aaa");
+
         ldapConfigService.updateById(LdapConfig.builder()
                 .id(1L)
-                .urls("192.168.3.186").base("CN")
+                .urls("ldap://192.168.3.186").base("DC=jktest,DC=cn")
                 .username("admin")
                 .password("123adgqer")
                 .build());
 
-        return "security ok";
+        return "false ok";
+    }
+
+    @GetMapping(value = "/updTrue")
+    public String updTrue() {
+
+        //  ldap:
+        //    urls: ldap://192.168.1.98
+        //    base: DC=jktest,DC=cn
+        //    username: administrator
+        //    password: Adadmin@jk888
+        ldapConfigService.updateById(LdapConfig.builder()
+                .id(1L)
+                .urls("ldap://192.168.1.98").base("DC=jktest,DC=cn")
+                .username("administrator")
+                .password("Adadmin@jk888")
+                .build());
+
+        return "true ok";
+    }
+
+    @GetMapping(value = "/ldap")
+    public String ldapTemplate() {
+
+
+        return "template ok";
     }
 
     @PostMapping(value = "/login")
