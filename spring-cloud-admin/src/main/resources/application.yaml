@@ -18,11 +18,10 @@ spring:
 
   elasticsearch:
     rest:
-      uris: http://es.test.jkservice.org:9200
-      # uris: 192.168.3.183:9200
+      # uris: http://es.test.jkservice.org:9200
+      uris: 192.168.3.183:9200
       username: elastic
       password: jkstack
-
 
   rabbitmq:
     username: admin
@@ -69,3 +68,6 @@ token:
   secret: abcdefghijklmnopqrstuvwxyz
   # 令牌有效期（默认30分钟）
   expireTime: 30
+
+logging:
+  config: classpath:log4j2.xml
