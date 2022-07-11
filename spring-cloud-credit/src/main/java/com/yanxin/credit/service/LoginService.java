@@ -2,6 +2,7 @@ package com.yanxin.credit.service;
 
 import com.yanxin.credit.dto.LoginDTO;
 import com.yanxin.credit.dto.LoginUserDTO;
+import com.yanxin.credit.vo.LoginVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,7 +28,7 @@ public class LoginService {
     private AuthenticationManager authenticationManager;
 
 
-    public String login(LoginDTO login) {
+    public LoginVO login(LoginDTO login) {
 
         // 用户验证
         Authentication authentication = null;
@@ -39,6 +40,8 @@ public class LoginService {
             loginUser = (LoginUserDTO) authentication.getPrincipal();
         }
         // 生成token
-        return tokenService.createToken(loginUser);
+        return LoginVO.builder()
+                .token(tokenService.createToken(loginUser))
+                .build();
     }
 }

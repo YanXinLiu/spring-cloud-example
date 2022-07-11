@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author: LiuYanXin
  * @create: 2022-02-09 15:02
  */
-@RestController
+@RestController(value = "/api")
 public class LoginController {
 
     @Autowired
