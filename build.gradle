@@ -7,7 +7,6 @@ repositories {
     mavenLocal()
     maven { url "https://maven.aliyun.com/repository/public" }
     mavenCentral()
-    jcenter()
 }
 
 
@@ -29,10 +28,31 @@ subprojects {
         set('springCloudAlibabaVersion', "2.2.1.RELEASE")
         set('springCloudVersion', "Hoxton.SR2")
         set('lombokVersion', "1.18.12")
+        set('dsm-common-dm-mybatis.version', "1.0.0")
     }
 
     repositories {
         maven{
+            url "http://nexus.jkservice.org/repository/jk-common/"
+            authentication {
+                basic(BasicAuthentication)
+            }
+            credentials {
+                username = 'zhangyajun'
+                password = 'JKSTACKPBzyj@1'
+            }
+        }
+        maven{
+            url "http://nexus.jkservice.org/repository/jkstack-dsm/"
+            authentication {
+                basic(BasicAuthentication)
+            }
+            credentials {
+                username = 'zhangyajun'
+                password = 'JKSTACKPBzyj@1'
+            }
+        }
+        /*maven{
             url "http://192.168.1.181/repository/maven-releases/"
             authentication {
                 basic(BasicAuthentication)
@@ -41,10 +61,9 @@ subprojects {
                 username = 'jkpublic'
                 password = 'JKpublic@1'
             }
-        }
+        }*/
         mavenLocal()
         maven { url "https://maven.aliyun.com/repository/public" }
-        jcenter()
     }
 
 

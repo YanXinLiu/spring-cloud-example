@@ -4,12 +4,13 @@ spring:
     username: root
     password: OcFPntqQb2W
     driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
   # LDAP连接配置
-#  ldap:
-#    urls: ldap://192.168.1.98
-#    base: DC=jktest,DC=cn
-#    username: administrator
-#    password: Adadmin@jk888
+  ldap:
+    urls: ldap://192.168.1.98
+    base: DC=jktest,DC=cn
+    username: administrator
+    password: Adadmin@jk888
   redis:
     database: 10
     password: OcFPntqQb2W
@@ -18,8 +19,8 @@ spring:
 
   elasticsearch:
     rest:
-      uris: http://es.test.jkservice.org:9200
-      # uris: 192.168.3.183:9200
+      # uris: es.test.jkservice.org:9200
+      uris: 192.168.3.183:9200
       username: elastic
       password: jkstack
 
@@ -38,6 +39,7 @@ spring:
       direct:
         acknowledge-mode: manual
         prefetch: 1
+
 #    ssl:
 #      enabled: true
 #      keyStore: classpath:client_key.p12
@@ -69,3 +71,26 @@ token:
   secret: abcdefghijklmnopqrstuvwxyz
   # 令牌有效期（默认30分钟）
   expireTime: 30
+
+seata:
+  registry:
+    type: nacos
+    nacos:
+      cluster: default
+      namespace: dpa-seata
+      server-addr: 192.168.3.183:8848
+      group: dpa-seata
+  config:
+    nacos:
+      namespace: dpa-seata
+      server-addr: 192.168.3.183:8848
+      group: dpa-seata
+      data-id: seataServer.properties
+    type: nacos
+  enabled: true
+  tx-service-group: goods_tx_group
+  service:
+    vgroup-mapping:
+      goods_tx_group: default
+  enable-auto-data-source-proxy: true
+  data-source-proxy-mode: AT

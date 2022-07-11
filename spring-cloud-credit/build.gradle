@@ -11,6 +11,15 @@ dependencies {
     implementation project(':spring-cloud-common')
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'javax.servlet:javax.servlet-api'
+    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config'
+    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
+    implementation ('com.alibaba.cloud:spring-cloud-starter-alibaba-seata'){
+        exclude group: 'io.seata', module: 'seata-spring-boot-starter'
+    }
+    implementation 'io.seata:seata-spring-boot-starter:1.4.2'
+    // feign
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
 
     // jwt
     implementation 'io.jsonwebtoken:jjwt:0.9.1'

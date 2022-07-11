@@ -2,10 +2,14 @@ package com.yanxin.admin.service.impl;
 
 import com.yanxin.admin.domain.LdapUser;
 import com.yanxin.admin.domain.User;
+import com.yanxin.admin.dto.GoodsDTO;
 import com.yanxin.admin.dto.LoginUserDTO;
 import com.yanxin.admin.repository.LdapUserRepository;
 import com.yanxin.admin.repository.UserRepository;
 import com.yanxin.admin.service.UserService;
+import com.yanxin.admin.service.feign.GoodsServiceFeignApi;
+import com.yanxin.common.base.ResultBody;
+import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +45,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private LdapTemplate ldapTemplate;
 
+    @Autowired
+    private GoodsServiceFeignApi goodsServiceFeignApi;
 
     @Override
     @Transactional(readOnly = true)
@@ -63,8 +69,12 @@ public class UserServiceImpl implements UserService {
             put = {@CachePut(value = "userCache", key = "#user.id")},
             evict = {@CacheEvict(value = "userListCache", allEntries = true)}
     )
+    @GlobalTransactional(name = "goods_tx_group")
     public User insertUser(User user) {
         userRepository.save(user);
+        GoodsDTO goodsDTO = new GoodsDTO();
+        goodsDTO.setName(user.getUsername());
+        ResultBody resultBody = goodsServiceFeignApi.addGoods(goodsDTO);
         log.info("id: {}", user.getId());
         return user;
 

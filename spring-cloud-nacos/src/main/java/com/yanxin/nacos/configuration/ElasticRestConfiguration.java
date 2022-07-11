@@ -33,6 +33,7 @@ public class ElasticRestConfiguration extends AbstractElasticsearchConfiguration
 
     @Override
     @Bean
+    @ConditionalOnClass(EsRequestService.class)
     public RestHighLevelClient elasticsearchClient() {
 
         final ClientConfiguration clientConfiguration = ClientConfiguration.builder()

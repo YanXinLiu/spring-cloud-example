@@ -2,15 +2,16 @@ server:
   port: 8081
 spring:
   application:
-    name: cloud-admin
+    name: cloud-plat
   cloud:
     nacos:
       discovery:
         server-addr: 192.168.3.183:8848
-        namespace: dpa-yanxin
+        namespace: dpa-seata
+        group: dpa-seata
       config:
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
-        namespace: dpa-yanxin
+        namespace: dpa-seata
         file-extension: yaml
         shared-configs:
-          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+          - application.${spring.cloud.nacos.config.file-extension}
