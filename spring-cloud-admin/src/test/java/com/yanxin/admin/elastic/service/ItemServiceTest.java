@@ -2,7 +2,6 @@ package com.yanxin.admin.elastic.service;
 
 
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.http.HttpUtil;
 import com.yanxin.admin.elastic.entity.TaskExecuteInfo;
 import com.yanxin.admin.elastic.entity.TaskResponse;
 import com.yanxin.admin.elastic.repository.TaskExecuteInfoRepository;
@@ -13,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
+import org.springframework.data.elasticsearch.core.query.Criteria;
+import org.springframework.data.elasticsearch.core.query.CriteriaQuery;
 import org.springframework.data.elasticsearch.core.query.IndexQueryBuilder;
+import org.springframework.data.elasticsearch.core.query.Query;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
@@ -67,10 +69,22 @@ public class ItemServiceTest {
     @Test
     public void findById() {
 
-        final Optional<TaskExecuteInfo> optTask = taskExecuteInfoRepository.findById("command-202108121853299622339");
+        final Optional<TaskExecuteInfo> optTask = taskExecuteInfoRepository.findById("command-202202220000024488435");
         if (optTask.isPresent()) {
             final TaskExecuteInfo taskExecuteInfo = optTask.get();
             System.out.println(taskExecuteInfo.toString());
         }
+    }
+
+
+    @Test
+    public void delByCreateDate() {
+
+        // 2022-02-22 00:03:10
+        // Date date = DateUtil.parseDate("2022-02-22 00:03:10").toJdkDate();
+        Criteria criteria = new Criteria("create_date").lessThan("2022-02-22 00:03:12");
+        Query query = new CriteriaQuery(criteria);
+        IndexCoordinates indexCoordinates = IndexCoordinates.of("task");
+        elasticsearchOperations.delete(query, TaskExecuteInfo.class, indexCoordinates);
     }
 }

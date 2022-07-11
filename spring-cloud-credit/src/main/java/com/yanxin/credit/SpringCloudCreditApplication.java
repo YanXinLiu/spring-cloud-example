@@ -9,8 +9,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan("com.yanxin.**.mapper")
 public class SpringCloudCreditApplication {
 
+
     public static void main(String[] args) {
         SpringApplication.run(SpringCloudCreditApplication.class, args);
     }
+
 
 }

@@ -1,11 +1,16 @@
 package com.yanxin.admin.service;
 
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONPath;
 import com.alibaba.fastjson.support.spring.JSONPResponseBodyAdvice;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -15,7 +20,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -187,5 +194,30 @@ public class StringTest {
         df.setTimeZone(new SimpleTimeZone(0, "GMT"));
         System.out.println(df.format(date));
         return df.format(date);
+    }
+
+    @Test
+    public void httpStrTest(){
+
+        String url = "http://gitlab.devops.zhaokangshuai.cn/devops/golang-cicd.git";
+        final String flagStr = "://";
+        String prefix = StrUtil.subBefore(url, flagStr, true);
+        String uri = StrUtil.subAfter(url, flagStr, true);
+        String serverUrl = prefix + flagStr + StrUtil.subBefore(uri, "/", false);
+        System.out.println(serverUrl);
+
+
+    }
+
+    @Test
+    public void containTest() {
+
+        String ips = "192.169.3.186,10.202.0.159";
+        Assert.assertTrue(StrUtil.containsAny(ips, StrUtil.split("10.202.0.159", ",")));
+    }
+
+    @Test
+    public void strDateTest() {
+
     }
 }
