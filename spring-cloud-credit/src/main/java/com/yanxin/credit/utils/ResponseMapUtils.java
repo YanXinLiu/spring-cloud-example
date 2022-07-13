@@ -2,7 +2,10 @@ package com.yanxin.credit.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.yanxin.common.consts.ResultEnum;
+import com.yanxin.common.utils.ResultUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,8 +23,8 @@ public class ResponseMapUtils {
         Map<String, Object> map = new TreeMap<>();
         ObjectMapper objectMapper = new ObjectMapper();
         response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        map.put("code", code);
+        response.setStatus(code);
+        map.put("code", code == HttpStatus.OK.value() ? 0 : code);
         map.put("message", message);
         map.put("path", request.getServletPath());
         map.put("timestamp", String.valueOf(System.currentTimeMillis()));
