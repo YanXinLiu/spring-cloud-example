@@ -14,6 +14,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
+import org.springframework.web.filter.CorsFilter;
 
 /**
  * @author sa
@@ -30,6 +32,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private LogoutSuccessHandlerImpl logoutSuccessHandler;
+
+    @Autowired
+    private CorsFilter corsFilter;
 
     public static String[] ignoreUrls = {"/", "/login", "/**/v2/api-docs/**", "/swagger-resources/**",
             "/swagger-ui.html", "/webjars/**", "/api/**", "/**/favicon.ico"};
@@ -53,9 +58,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().antMatchers(ignoreUrls).permitAll()
                 .and().authorizeRequests()
                 .anyRequest().authenticated();
-
-        http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         http.logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler);
+        http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+        // 添加CORS filter
+        http.addFilterBefore(corsFilter, JwtAuthFilter.class);
+        http.addFilterBefore(corsFilter, LogoutFilter.class);
     }
 
     @Override

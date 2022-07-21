@@ -69,7 +69,8 @@ public class ItemServiceTest {
     @Test
     public void findById() {
 
-        final Optional<TaskExecuteInfo> optTask = taskExecuteInfoRepository.findById("command-202202220000024488435");
+        // command-202207121916177644215
+        final Optional<TaskExecuteInfo> optTask = taskExecuteInfoRepository.findById("command-202207121916177644215");
         if (optTask.isPresent()) {
             final TaskExecuteInfo taskExecuteInfo = optTask.get();
             System.out.println(taskExecuteInfo.toString());
