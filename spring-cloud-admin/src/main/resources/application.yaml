@@ -28,15 +28,16 @@ spring:
     password: OcFPntqQb2W
     host: 192.168.3.186
     port: 5672
-    listener:
-      simple:
-        retry:
-          enabled: true
-          max-attempts: 2
-          initial-interval: 3000
-      direct:
-        acknowledge-mode: manual
-        prefetch: 1
+    virtual-host: dpa-dm
+#    listener:
+#      simple:
+#        retry:
+#          enabled: true
+#          max-attempts: 2
+#          initial-interval: 3000
+#      direct:
+#        acknowledge-mode: manual
+#        prefetch: 1
 #    ssl:
 #      enabled: true
 #      keyStore: classpath:client_key.p12

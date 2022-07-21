@@ -1,4 +1,4 @@
-FROM 192.168.3.183:8011/jkstack/oracle/jre:8
+FROM harbor.jkservice.org/base/base-java:latest
 
 MAINTAINER liuyanxin@jkstack.com
 

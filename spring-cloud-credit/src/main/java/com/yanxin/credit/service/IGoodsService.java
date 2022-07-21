@@ -14,11 +14,11 @@ import java.util.List;
  */
 public interface IGoodsService extends IService<Goods> {
 
-    public List<Goods> selectList(String name);
+    List<Goods> selectList(String name);
 
-    public int insertGoods(Goods goods);
+    int insertGoods(Goods goods);
 
-    public int deleteGoods(Goods goods);
+    int deleteGoods(Goods goods);
 
-    public int updateGoods(Goods goods);
+    int updateGoods(Goods goods);
 }

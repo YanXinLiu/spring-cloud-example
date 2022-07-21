@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yanxin.credit.entity.Goods;
 import com.yanxin.credit.mapper.GoodsMapper;
 import com.yanxin.credit.service.IGoodsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -21,8 +20,11 @@ import java.util.List;
 @Service
 public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements IGoodsService {
 
-    @Autowired
     private GoodsMapper goodsMapper;
+
+    public GoodsServiceImpl(GoodsMapper goodsMapper) {
+        this.goodsMapper = goodsMapper;
+    }
 
     @Override
     public List<Goods> selectList(String name) {
