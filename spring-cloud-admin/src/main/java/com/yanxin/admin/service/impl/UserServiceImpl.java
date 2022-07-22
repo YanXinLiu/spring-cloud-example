@@ -3,20 +3,20 @@ package com.yanxin.admin.service.impl;
 import com.yanxin.admin.domain.LdapConfig;
 import com.yanxin.admin.domain.LdapUser;
 import com.yanxin.admin.domain.User;
+import com.yanxin.admin.dto.GoodsDTO;
 import com.yanxin.admin.dto.LoginUserDTO;
 import com.yanxin.admin.repository.LdapConfigRepository;
 import com.yanxin.admin.repository.LdapUserRepository;
 import com.yanxin.admin.repository.UserRepository;
 import com.yanxin.admin.service.UserService;
+import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
-import org.springframework.data.ldap.repository.LdapRepository;
 import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.core.support.LdapContextSource;
 import org.springframework.ldap.filter.EqualsFilter;
@@ -54,10 +54,10 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     public User selectByName(String username) {
 
-        LdapConfig ld = ldapConfigRepository.findById(1L).get();
+        LdapConfig ldapConfig = ldapConfigRepository.findById(1L).get();
         LdapContextSource source = new LdapContextSource();
         source.setBase("DC=jktest,DC=cn");
-        source.setUrl(ld.getUrls());
+        source.setUrl(ldapConfig.getUrls());
         source.setPassword("Adadmin@jk888");
         source.setUserDn("administrator");
         source.afterPropertiesSet();
@@ -79,8 +79,11 @@ public class UserServiceImpl implements UserService {
             put = {@CachePut(value = "userCache", key = "#user.id")},
             evict = {@CacheEvict(value = "userListCache", allEntries = true)}
     )
+    @GlobalTransactional(name = "goods_tx_group")
     public User insertUser(User user) {
         userRepository.save(user);
+        GoodsDTO goodsDTO = new GoodsDTO();
+        goodsDTO.setName(user.getUsername());
         log.info("id: {}", user.getId());
         return user;
 

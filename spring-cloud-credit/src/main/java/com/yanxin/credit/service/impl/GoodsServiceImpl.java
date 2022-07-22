@@ -7,7 +7,9 @@ import com.yanxin.credit.entity.Goods;
 import com.yanxin.credit.mapper.GoodsMapper;
 import com.yanxin.credit.service.IGoodsService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -36,10 +38,19 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int insertGoods(Goods goods) {
+
         goods.setCreateTime(new Date());
         goods.setUpdateTime(new Date());
-        return goodsMapper.insert(goods);
+        goods.setCredit(BigDecimal.valueOf(20L));
+        goods.setCreateUser(1);
+        goods.setUpdateUser(1);
+        int insert = goodsMapper.insert(goods);
+        if(goods.getName().equals("xiaozhou")){
+            throw new RuntimeException("xiaozhou 异常");
+        }
+        return insert;
     }
 
     @Override

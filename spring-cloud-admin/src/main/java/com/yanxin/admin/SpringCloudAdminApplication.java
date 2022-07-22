@@ -9,7 +9,7 @@ import org.springframework.data.ldap.repository.config.EnableLdapRepositories;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients
+@EnableFeignClients(value = "com.yanxin.admin.service.feign")
 @EnableCaching
 public class SpringCloudAdminApplication {
 

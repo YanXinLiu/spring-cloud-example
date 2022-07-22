@@ -31,20 +31,26 @@ token:
   secret: abcdefghijklmnopqrstuvwxyz
   # 令牌有效期（默认30分钟）
   expireTime: 30
-camel:
-  component:
-    enabled: true
-    smpp:
-      configuration:
-        password: wrL:m2fX
-        system-id: Phoenix_ra2
-        source-addr-ton: 5 #0x05
-        source-addr-npi: 1 #0x01
-        dest-addr-npi: 0 #0x01
-        dest-addr-ton: 0 #0x01
-        registered-delivery: 1
-        host: 93.158.78.4
-        port: 3600
-  springboot:
-    name: smpp-app
-    main-run-controller: false
+
+seata:
+  registry:
+    type: nacos
+    nacos:
+      cluster: default
+      namespace: dpa-seata
+      server-addr: 192.168.3.183:8848
+      group: dpa-seata
+  config:
+    nacos:
+      namespace: dpa-seata
+      server-addr: 192.168.3.183:8848
+      group: dpa-seata
+      data-id: seataServer.properties
+    type: nacos
+  enabled: true
+  tx-service-group: goods_tx_group
+  service:
+    vgroup-mapping:
+      goods_tx_group: default
+  enable-auto-data-source-proxy: true
+  data-source-proxy-mode: AT
