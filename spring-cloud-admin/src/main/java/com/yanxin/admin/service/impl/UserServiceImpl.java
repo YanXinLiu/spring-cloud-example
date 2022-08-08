@@ -9,7 +9,6 @@ import com.yanxin.admin.repository.LdapConfigRepository;
 import com.yanxin.admin.repository.LdapUserRepository;
 import com.yanxin.admin.repository.UserRepository;
 import com.yanxin.admin.service.UserService;
-import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +78,7 @@ public class UserServiceImpl implements UserService {
             put = {@CachePut(value = "userCache", key = "#user.id")},
             evict = {@CacheEvict(value = "userListCache", allEntries = true)}
     )
-    @GlobalTransactional(name = "goods_tx_group")
+    // @GlobalTransactional(name = "goods_tx_group")
     public User insertUser(User user) {
         userRepository.save(user);
         GoodsDTO goodsDTO = new GoodsDTO();

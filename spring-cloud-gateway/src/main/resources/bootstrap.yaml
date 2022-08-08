@@ -1,8 +1,6 @@
-server:
-  port: 8081
 spring:
   application:
-    name: cloud-admin
+    name: cloud-gateway
   cloud:
     nacos:
       discovery:
@@ -15,3 +13,8 @@ spring:
         file-extension: yaml
         shared-configs:
           - application.${spring.cloud.nacos.config.file-extension}
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+          lower-case-service-id: on

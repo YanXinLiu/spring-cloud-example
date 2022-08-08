@@ -1,0 +1,17 @@
+server:
+  port: 30001
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: cloud-admin
+          uri: lb://cloud-admin
+          predicates:
+            - Path=/admin/**
+          filters:
+            - StripPrefix=1
+  redis:
+    database: 10
+    password: OcFPntqQb2W
+    host: 192.168.3.186
+    port: 6379

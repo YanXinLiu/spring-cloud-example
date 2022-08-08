@@ -19,8 +19,8 @@ spring:
 
   elasticsearch:
     rest:
-      uris: http://es.test.jkservice.org:9200
-      # uris: 192.168.3.183:9200
+      # uris: http://es.test.jkservice.org:9200
+      uris: 192.168.3.183:9200
       username: elastic
       password: jkstack
 
@@ -74,25 +74,25 @@ token:
 logging:
   config: classpath:log4j2.xml
 
-seata:
-  registry:
-    type: nacos
-    nacos:
-      cluster: default
-      namespace: dpa-seata
-      server-addr: 192.168.3.183:8848
-      group: dpa-seata
-  config:
-    nacos:
-      namespace: dpa-seata
-      server-addr: 192.168.3.183:8848
-      group: dpa-seata
-      data-id: seataServer.properties
-    type: nacos
-  enabled: true
-  tx-service-group: goods_tx_group
-  service:
-    vgroup-mapping:
-      goods_tx_group: default
-  enable-auto-data-source-proxy: true
-  data-source-proxy-mode: AT
+#seata:
+#  registry:
+#    type: nacos
+#    nacos:
+#      cluster: default
+#      namespace: dpa-seata
+#      server-addr: 192.168.3.183:8848
+#      group: dpa-seata
+#  config:
+#    nacos:
+#      namespace: dpa-seata
+#      server-addr: 192.168.3.183:8848
+#      group: dpa-seata
+#      data-id: seataServer.properties
+#    type: nacos
+#  enabled: true
+#  tx-service-group: goods_tx_group
+#  service:
+#    vgroup-mapping:
+#      goods_tx_group: default
+#  enable-auto-data-source-proxy: true
+#  data-source-proxy-mode: AT

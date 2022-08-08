@@ -56,6 +56,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.OK)
     public static ResultBody handlerException(Exception e) {
 
+        log.error("[error] 系统异常: {}", e.getMessage());
         return ResultUtils.error(ResultEnum.ERROR.getCode(), e.getMessage());
     }
 }

@@ -1,2 +1,17 @@
-version: '3'
-web:
+version: "3"
+services:
+  cloud-admin:
+    image: harbor.jkservice.org/demo/cloud-admin:v1
+    ports:
+      - "8081:8081"
+    environment:
+      REGISTER_HOST: localhost
+    restart: always
+
+  cloud-gateway:
+    image: harbor.jkservice.org/demo/cloud-gateway:v1
+    ports:
+      - "30001:30001"
+    environment:
+      REGISTER_HOST: localhost
+    restart: always

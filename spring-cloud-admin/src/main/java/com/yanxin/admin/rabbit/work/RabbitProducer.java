@@ -1,4 +1,4 @@
-package com.yanxin.admin.rabbit;
+package com.yanxin.admin.rabbit.work;
 
 import com.yanxin.admin.constant.RabbitConstants;
 import org.springframework.amqp.rabbit.connection.CorrelationData;

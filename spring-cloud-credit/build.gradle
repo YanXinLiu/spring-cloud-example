@@ -47,4 +47,8 @@ dependencies {
 
     // fastjson
     implementation 'com.alibaba:fastjson:1.2.74'
+
+    implementation "org.mapstruct:mapstruct:1.4.2.Final"
+    annotationProcessor "org.mapstruct:mapstruct-processor:1.4.2.Final"
+
 }

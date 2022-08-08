@@ -6,11 +6,13 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.data.ldap.repository.config.EnableLdapRepositories;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients(value = "com.yanxin.admin.service.feign")
 @EnableCaching
+@EnableAsync
 public class SpringCloudAdminApplication {
 
     public static void main(String[] args) {

@@ -1,7 +1,5 @@
-package com.yanxin.credit.entity;
+package com.yanxin.credit.dto;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -14,12 +12,9 @@ import java.util.Date;
  * @create: 2022-02-10 17:23
  */
 @Data
-@TableName
-public class Car {
+public class CarDTO {
 
-    @TableId
     private Integer carId;
-
     /**
      * 厂商
      */
@@ -46,19 +41,9 @@ public class Car {
     private String recycleUser;
 
     /**
-     * 三元配件
-     */
-    private Integer equipment;
-
-    /**
      * 收车地点
      */
     private String recycleLocation;
-
-    /**
-     * 手机号码
-     */
-    private String phoneNumber;
 
     /**
      * 驾驶证
@@ -74,18 +59,4 @@ public class Car {
      * 手续是否办完
      */
     private Boolean finish;
-
-    private Integer createUser;
-
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-
-    private Integer updateUser;
-
-    /**
-     * 更新时间
-     */
-    private Date updateTime;
 }

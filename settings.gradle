@@ -9,6 +9,7 @@ findProject(':spring-cloud-platform:spring-cloud-plat-biz')?.name = 'spring-clou
 include 'spring-cloud-common'
 include 'spring-cloud-workflow'
 include 'spring-cloud-credit'
+include 'spring-cloud-gateway'
 include 'spring-cloud-starter'
 include 'spring-cloud-starter:markdown-spring-starter'
 findProject(':spring-cloud-starter:markdown-spring-starter')?.name = 'markdown-spring-starter'

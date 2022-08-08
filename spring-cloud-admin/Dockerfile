@@ -1,4 +1,4 @@
-FROM harbor.jkservice.org/base/base-java:latest
+FROM openjdk:11
 
 MAINTAINER liuyanxin@jkstack.com
 
