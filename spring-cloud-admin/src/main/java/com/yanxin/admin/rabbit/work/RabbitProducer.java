@@ -1,6 +1,11 @@
 package com.yanxin.admin.rabbit.work;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.yanxin.admin.constant.RabbitConstants;
+import com.yanxin.admin.dto.GoodsDTO;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessageBuilder;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,17 +31,15 @@ public class RabbitProducer {
 
     public String sendWorkMessage() {
 
+        GoodsDTO goods = new GoodsDTO();
+        goods.setGoodsId(1);
+        goods.setImageUrl("http://");
         String messageId = String.valueOf(UUID.randomUUID());
-        String messageData = "test message, hello!";
-        String createTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        Map<String, Object> map = new HashMap<>(8);
-        map.put("messageId", messageId);
-        map.put("messageData", messageData);
-        map.put("createTime", createTime);
-        // 将消息携带绑定键值：TestDirectRouting 发送到交换机TestDirectExchange
-        CorrelationData correlationId = new CorrelationData(UUID.randomUUID().toString());
+        // CorrelationData correlationId = new CorrelationData(UUID.randomUUID().toString());
         // 把消息放入ROUTING_KEY_A对应的队列当中去，对应的是队列A
-        rabbitTemplate.convertAndSend(RabbitConstants.WORK_QUEUE_NAME, map, correlationId);
+        Message message = MessageBuilder.withBody(JSONObject.toJSON(goods).toString().getBytes())
+                .setMessageId(messageId).build();
+        rabbitTemplate.convertAndSend(RabbitConstants.WORK_QUEUE_NAME, message);
         return "ok";
     }
 

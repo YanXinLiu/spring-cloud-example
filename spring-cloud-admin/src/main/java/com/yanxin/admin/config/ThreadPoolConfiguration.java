@@ -2,6 +2,7 @@ package com.yanxin.admin.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -16,6 +17,7 @@ public class ThreadPoolConfiguration implements AsyncConfigurer {
     public static final int cpuNum = Runtime.getRuntime().availableProcessors();
 
     @Override
+    @Bean("asyncExecutor")
     public Executor getAsyncExecutor() {
         ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
         // 设置线程池参数信息
@@ -23,7 +25,7 @@ public class ThreadPoolConfiguration implements AsyncConfigurer {
         taskExecutor.setMaxPoolSize(cpuNum * 2);
         taskExecutor.setQueueCapacity(500);
         taskExecutor.setKeepAliveSeconds(60);
-        taskExecutor.setThreadNamePrefix("dpa_pool_executor--");
+        taskExecutor.setThreadNamePrefix("dpa.pool.executor");
         taskExecutor.setWaitForTasksToCompleteOnShutdown(true);
         taskExecutor.setAwaitTerminationSeconds(60);
         // 修改拒绝策略为使用当前线程执行
@@ -38,7 +40,6 @@ public class ThreadPoolConfiguration implements AsyncConfigurer {
 
         return ((ex, method, params) -> {
             log.error("ex.getMessage: {}, exception method: {}", ex, method.getName());
-
         });
     }
 }

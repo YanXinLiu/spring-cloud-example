@@ -1,6 +1,5 @@
 package com.yanxin.credit.filter;
 
-import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.yanxin.credit.dto.LoginUserDTO;
 import com.yanxin.credit.service.TokenService;
@@ -16,7 +15,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Date;
 
 /**
  * @program spring-cloud-example

@@ -107,11 +107,11 @@ subprojects {
     uploadArchives {
         repositories {
             mavenDeployer {
-                snapshotRepository(url: "http://192.168.3.89:8081/repository/maven-snapshots/") {
-                    authentication(userName: "admin", password: "4b1HDSHmwyPxDTWP")
+                snapshotRepository(url: "http://192.168.1.181/repository/maven-snapshots/") {
+                    authentication(userName: "jkpublic", password: "JKpublic@1")
                 }
-                repository(url: "http://192.168.3.89:8081/repository/maven-releases/") {
-                    authentication(userName: "admin", password: "4b1HDSHmwyPxDTWP")
+                repository(url: "http://192.168.1.181/repository/maven-releases/") {
+                    authentication(userName: "jkpublic", password: "JKpublic@1")
                 }
             }
         }

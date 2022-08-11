@@ -30,12 +30,10 @@ spring:
     host: 192.168.3.186
     port: 5672
     virtual-host: dpa-dm
-#    listener:
-#      simple:
-#        retry:
-#          enabled: true
-#          max-attempts: 2
-#          initial-interval: 3000
+    listener:
+      simple:
+        acknowledge-mode: manual
+
 #      direct:
 #        acknowledge-mode: manual
 #        prefetch: 1
